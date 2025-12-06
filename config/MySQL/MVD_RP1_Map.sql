@@ -2726,7 +2726,13 @@ BEGIN
        DECLARE Self_bType      TINYINT UNSIGNED;
        DECLARE Self_bSubtype   TINYINT UNSIGNED;
 
-            IF ObjectHead_Parent_wClass = SBO_CLASS_RMPOBJECT
+            IF ObjectHead_Parent_wClass = SBO_CLASS_RMTOBJECT
+          THEN
+                 SELECT Type_bType
+                   INTO Parent_bType
+                   FROM RMTObject AS o
+                  WHERE o.ObjectHead_Self_twObjectIx = ObjectHead_Parent_twObjectIx
+        ELSEIF ObjectHead_Parent_wClass = SBO_CLASS_RMPOBJECT
           THEN
                  SELECT o.Type_bType, o.Type_bSubtype
                    INTO Parent_bType, Parent_bSubtype
@@ -6563,7 +6569,13 @@ BEGIN
        DECLARE Self_bType      TINYINT UNSIGNED;
        DECLARE Self_bSubtype   TINYINT UNSIGNED;
 
-            IF ObjectHead_Parent_wClass = SBO_CLASS_RMTOBJECT
+            IF ObjectHead_Parent_wClass = SBO_CLASS_RMCOBJECT
+          THEN
+                 SELECT Type_bType
+                   INTO Parent_bType
+                   FROM RMCObject AS o
+                  WHERE o.ObjectHead_Self_twObjectIx = ObjectHead_Parent_twObjectIx
+        ELSEIF ObjectHead_Parent_wClass = SBO_CLASS_RMTOBJECT
           THEN
                  SELECT o.Type_bType, o.Type_bSubtype
                    INTO Parent_bType, Parent_bSubtype

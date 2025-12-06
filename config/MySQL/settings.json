@@ -9,10 +9,6 @@
          "cert":  "./ssl/server.cert"
       },
 
-      "_comment2": "If your server is running REST AND requires a prefix to endpoint rename _REST to REST, and specify Prefix",
-      "REST": {
-         "sPrefix": ""
-      },
       "IO": {
          "bGlobalNotify": true
       }
@@ -28,14 +24,6 @@
          "password":         "<MYSQLPASSWORD>",
          "database":         "<MYSQLDATABASE>",
          "multipleStatements": true
-      }
-   },
-
-   "_comment3": "'SQL' contains SQL Config Data used by MVSQL. Currently only support 'MSSQL'",
-   "_SQL": {
-      "type": "MSSQL",
-      "config": {
-         "connectionString": "Driver=SQL Server;Server=<DBHOST>;Database=<DBNAME>;Trusted_Connection=yes;"
       }
    }
 }

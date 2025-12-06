@@ -7,10 +7,11 @@ Package/dist/
 package-lock.json
 
 mvconfig.json
-sqlconfig.json
 
 mvmf.json
 mvmf2.json
+
+.DS_Store
 
 # User-specific files
 *.rsuser

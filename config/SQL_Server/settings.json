@@ -1,0 +1,23 @@
+{
+   "_comment1": "'MVSF' contains Server Config Information for MVSF",
+   "MVSF": {
+      "nPort": "<PORT>",
+
+      "_comment1": "If your server is using SSL, rename '_SSL' to 'SSL'",
+      "_SSL": {
+         "key":   "./ssl/server.key",
+         "cert":  "./ssl/server.cert"
+      },
+
+      "IO": {
+         "bGlobalNotify": true
+      }
+   },
+
+   "SQL": {
+      "type": "MSSQL",
+      "config": {
+         "connectionString": "Driver=SQL Server;Server=<DBHOST>;Database=<DBNAME>;Trusted_Connection=yes;"
+      }
+   }
+}
