@@ -72,7 +72,6 @@
                            </select>
                         </div>
                      </li>
-                     <li><div class="dropdown-item py-2"><input type="file" id="file" class="pe-auto"></div></li>
                      <li><div class="dropdown-item mx-auto py-2">
                         <div class="form-check form-switch">
                            <input class="form-check-input" type="checkbox" role="switch" id="snap">
@@ -238,6 +237,19 @@
                <button type="button" class="btn btn-primary rounded-5" id="applyChangesFromModal">
                   <i class="fa-solid fa-arrows-spin fa-spin me-1"></i>Apply Changes
                </button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- Modal for publishing progress -->
+   <div class="modal fade blur" id="publishingModal" tabindex="-1" aria-labelledby="publishingModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+         <div class="modal-content bg-dark text-light">
+            <div class="modal-body text-center py-5">
+               <i class="fa-solid fa-spinner fa-spin fa-3x mb-4 text-primary"></i>
+               <h5 class="modal-title mb-0" id="publishingModalLabel">Publishing Your Scene...</h5>
+               <p class="text-muted mt-3 mb-0">Please wait while your scene is saved.</p>
             </div>
          </div>
       </div>

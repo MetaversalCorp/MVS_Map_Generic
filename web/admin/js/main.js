@@ -89,7 +89,6 @@ scene.add(humanGuide);
 
 // ===== UI refs =====
 const loader = new THREE.GLTFLoader();
-const fileInput = document.getElementById("file");
 
 // ===== Model Cache System =====
 const modelCache = new Map();
@@ -1773,61 +1772,6 @@ function createHumanGuide(heightMeters=HUMAN_HEIGHT) {
     return group;
 }
 
-// ===== File loading (preserve original pivot & transform) =====
-fileInput.addEventListener("change", async e => {
-    const file = e.target.files[0];
-    if (!file)
-        return;
-    
-    // Block file loading if there are unsaved changes
-    if (!checkUnsavedChangesBeforeEdit()) {
-        // Reset file input
-        e.target.value = '';
-        return;
-    }
-    const url = URL.createObjectURL(file);
-
-    try {
-        const gltf = await new Promise( (resolve, reject) => {
-            loader.load(url, resolve, undefined, reject);
-        }
-        );
-
-        const model = gltf.scene;
-        model.userData.isSelectable = true;
-        model.name = (file.name || ("Model " + modelCounter++)).replace(/\.[^/.]+$/, "");
-
-        // Track original source for export/reference reuse
-        const reference = model.name + ".glb";
-        model.userData.sourceRef = {
-            originalFileName: file.name,
-            baseName: model.name,
-            reference: reference
-        };
-
-        // Cache the model for potential reuse
-        modelCache.set(reference, model);
-
-        createBoxHelperFor(model);
-
-        canvasRoot.add(model);
-
-        addModelToList(model, model.name);
-        storeInitialTransform(model);
-        selectObject(model);
-        updateBoxHelper(model);
-        frameCameraOn(model);
-        saveSceneState('create', [model]);
-        updateJSONEditorFromScene();
-    } catch (error) {
-        console.error("Failed to load file:", error);
-    } finally {
-        // Clean up the object URL
-        URL.revokeObjectURL(url);
-    }
-}
-);
-
 // ===== Attach / Detach =====
 // DEPRECATED: Use drag-and-drop attaching instead
 function groupSelectedObjects() {
@@ -1861,6 +1805,14 @@ function groupSelectedObjects() {
     group.position.copy(parentObj.position);
     group.quaternion.copy(parentObj.quaternion);
     group.scale.copy(parentObj.scale);
+
+    // Preserve twObjectIx and wClass from parent object to the group
+    if (parentObj.userData?.twObjectIx !== undefined) {
+        group.userData.twObjectIx = parentObj.userData.twObjectIx;
+    }
+    if (parentObj.userData?.wClass !== undefined) {
+        group.userData.wClass = parentObj.userData.wClass;
+    }
 
     // Remove parent object from scene and add it as first child of group
     scene.remove(parentObj);
@@ -1961,6 +1913,7 @@ function ungroupSelectedObject() {
     const groupParent = group.parent || scene;
     const wasInParentGroup = groupParent && groupParent !== scene && groupParent.userData?.isEditorGroup;
 
+    let isFirstChild = true;
     while (group.children.length > 0) {
         const child = group.children[0];
 
@@ -1969,6 +1922,17 @@ function ungroupSelectedObject() {
             canvasRoot.attach(child);
         } else {
             groupParent.attach(child);
+        }
+
+        // Restore twObjectIx and wClass from group to the first child (parent object)
+        if (isFirstChild) {
+            if (group.userData?.twObjectIx !== undefined) {
+                child.userData.twObjectIx = group.userData.twObjectIx;
+            }
+            if (group.userData?.wClass !== undefined) {
+                child.userData.wClass = group.userData.wClass;
+            }
+            isFirstChild = false;
         }
 
         createBoxHelperFor(child);
@@ -2195,6 +2159,14 @@ function cleanupEmptyParentGroups(parentGroup) {
 
             // Restore the parent object's transform and add it back to scene
             scene.attach(parentObject);
+
+            // Restore twObjectIx and wClass from group to the parent object
+            if (parentGroup.userData?.twObjectIx !== undefined) {
+                parentObject.userData.twObjectIx = parentGroup.userData.twObjectIx;
+            }
+            if (parentGroup.userData?.wClass !== undefined) {
+                parentObject.userData.wClass = parentGroup.userData.wClass;
+            }
 
             // Restore original sidebar representation
             // For the parent object (first child), it might not have originalName/originalListType
@@ -2444,6 +2416,14 @@ function createGroupFromDragDrop(draggedObj, targetObj) {
     group.quaternion.copy(targetObj.quaternion);
     group.scale.copy(targetObj.scale);
 
+    // Preserve twObjectIx and wClass from target object to the group
+    if (targetObj.userData?.twObjectIx !== undefined) {
+        group.userData.twObjectIx = targetObj.userData.twObjectIx;
+    }
+    if (targetObj.userData?.wClass !== undefined) {
+        group.userData.wClass = targetObj.userData.wClass;
+    }
+
     // Remember if target was in a parent group
     const targetParent = targetObj.parent;
     const wasInGroup = targetParent && targetParent.userData?.isEditorGroup;
@@ -2667,6 +2647,14 @@ function createGroupFromMultipleDragDrop(draggedObjects, targetObj) {
     group.position.copy(targetObj.position);
     group.quaternion.copy(targetObj.quaternion);
     group.scale.copy(targetObj.scale);
+
+    // Preserve twObjectIx and wClass from target object to the group
+    if (targetObj.userData?.twObjectIx !== undefined) {
+        group.userData.twObjectIx = targetObj.userData.twObjectIx;
+    }
+    if (targetObj.userData?.wClass !== undefined) {
+        group.userData.wClass = targetObj.userData.wClass;
+    }
 
     // Remember if target was in a parent group
     const targetParent = targetObj.parent;
@@ -4553,6 +4541,14 @@ async function processNodeHierarchically(node, parent, existingObjects, processe
                 };
             }
 
+            // Preserve twObjectIx and wClass from JSON node to the group
+            if (node.wClass !== undefined) {
+                group.userData.wClass = node.wClass;
+            }
+            if (node.twObjectIx !== undefined) {
+                group.userData.twObjectIx = node.twObjectIx;
+            }
+
             // Mark as imported from JSON
             group.userData.isImportedFromJSON = true;
 
@@ -4564,6 +4560,19 @@ async function processNodeHierarchically(node, parent, existingObjects, processe
             group.userData.isImportedFromJSON = true;
             // Mark as imported from JSON to skip canvas clamping
             group.name = obj.name || "Attached " + Date.now();
+
+            // Preserve twObjectIx and wClass from parent object (or JSON node) to the group
+            // First try from the object's userData (set during updateOrCreateObject)
+            if (obj.userData?.twObjectIx !== undefined) {
+                group.userData.twObjectIx = obj.userData.twObjectIx;
+            } else if (node.twObjectIx !== undefined) {
+                group.userData.twObjectIx = node.twObjectIx;
+            }
+            if (obj.userData?.wClass !== undefined) {
+                group.userData.wClass = obj.userData.wClass;
+            } else if (node.wClass !== undefined) {
+                group.userData.wClass = node.wClass;
+            }
 
             // Use local transform values directly from JSON
             if (node.pTransform) {
@@ -5207,6 +5216,32 @@ updateUndoRedoButtons();
 
 // Initialize properties panel visibility (hidden initially since no objects selected)
 updateTransformButtonStates();
+
+// ===== Publish Scene Modal =====
+const publishSceneBtn = document.getElementById('publishScene');
+const publishingModal = document.getElementById('publishingModal');
+
+if (publishSceneBtn && publishingModal) {
+    publishSceneBtn.addEventListener('click', () => {
+        // Show the publishing modal
+        const modal = new bootstrap.Modal (publishingModal, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        modal.show ();
+
+        g_pMap.onPublish ();
+    });
+}
+
+function ClosePublishModal () {
+    const modalElement = document.getElementById('publishingModal');
+    if (!modalElement) return;
+
+    // Ensure we always have an instance to close even if it wasn't cached
+    const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+    modalInstance.hide();
+}
 
 // Update button states periodically to handle code editor focus changes
 setInterval(() => {

@@ -42,8 +42,6 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       this.#jPObject = this.jSelector.find ('.jsPObject');
       this.#jPObject.on ('change', this.onClick_Scene.bind (this));
 
-      this.jSelector.find ('.jsPublish').on ('click', this.onPublish.bind (this));
-
       this.#m_pFabric = new MV.MVRP.MSF (sURL, MV.MVRP.MSF.eMETHOD.GET);
       this.#m_pFabric.Attach (this);
    }
@@ -83,9 +81,9 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    {
       if (this.IsReady ())
       {
-         if (pNotice.pData.pChild != null)
+         if (pNotice.pData.pChild == null)
          {
-            this.UpdateView ();
+            this.nStack--;
          }
       }
    }
@@ -446,7 +444,10 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       let Payload = pIAction.pRequest;
 
       if (this.RMCopy_Type (pRMPObjectJSON, Payload.pType))
+      {
+         this.nStack++;
          pIAction.Send (this, this.onRSPGeneric.bind (this));
+      }
    }
 
    RMPEditName (pRMPObject, pRMPObjectJSON)
@@ -455,7 +456,10 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       let Payload = pIAction.pRequest;
 
       if (this.RMCopy_Name (pRMPObjectJSON, Payload.pName))
+      {
+         this.nStack++;
          pIAction.Send (this, this.onRSPGeneric.bind (this));
+      }
    }
 
    RMPEditResource (pRMPObject, pRMPObjectJSON)
@@ -464,7 +468,10 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       let Payload = pIAction.pRequest;
 
       if (this.RMCopy_Resource (pRMPObject, pRMPObjectJSON, Payload.pResource))
+      {
+         this.nStack++;
          pIAction.Send (this, this.onRSPGeneric.bind (this));
+      }
    }
 
    RMPEditBound (pRMPObject, pRMPObjectJSON)
@@ -473,7 +480,10 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       let Payload = pIAction.pRequest;
 
       if (this.RMCopy_Bound (pRMPObjectJSON, Payload.pBound))
+      {
+         this.nStack++;
          pIAction.Send (this, this.onRSPGeneric.bind (this));
+      }
    }
 
    RMPEditTransform (pRMPObject, pRMPObjectJSON)
@@ -482,7 +492,10 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       let Payload = pIAction.pRequest;
 
       if (this.RMCopy_Transform (pRMPObjectJSON, Payload.pTransform))
+      {
+         this.nStack++;
          pIAction.Send (this, this.onRSPGeneric.bind (this));
+      }
    }
 
    RMPEditAll (pRMPObject, pJSON)
@@ -535,7 +548,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
    CheckStack ()
    {
-      return (this.nStack == 0); // True means stop, False continues
+      return (this.nStack <= 0); // True means stop, False continues
    }
 
    CheckClose ()
@@ -648,7 +661,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
          }
          else pJSONObjectX = null;
 
-         this.GetRemovedNodes (pJSONObjectX, apRMXObject[n]);
+         this.GetRemovedNodes (pJSONObjectX, apRMXObject[n], mpRemovedNodes);
       }
    }
 
@@ -690,31 +703,29 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       }
 
       this.UpdateEditor ();
+
+      ClosePublishModal ();
    }
 
-   onPublish (e)
+   onPublish ()
    {
       let sJSON = getJSONEditorText ();
       let pJSONObject = JSON.parse (sJSON);
 
-      if (this.nStack == 0)
+      this.nStack = 0;
+      if (pJSONObject[0].twObjectIx == this.#pRMXRoot.twObjectIx)
       {
-         this.nStack = 0;
-         if (pJSONObject[0].twObjectIx == this.#pRMXRoot.twObjectIx)
-         {
-            let mpRemovedNodes = {};
+         let mpRemovedNodes = {};
 
-            this.GetRemovedNodes (pJSONObject[0], this.#pRMXRoot, mpRemovedNodes);
-            this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, true);
-            this.RemoveRMPObject (mpRemovedNodes);
-         }
-         else
-         {
-            let mpRemovedNodes = {};
-
-            this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, true);
-         }
+         this.GetRemovedNodes (pJSONObject[0], this.#pRMXRoot, mpRemovedNodes);
+         this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, true);
+         this.RemoveRMPObject (mpRemovedNodes);
       }
-      else console.log ('ERROR: Pending Stack Call');
+      else
+      {
+         let mpRemovedNodes = {};
+
+         this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, true);
+      }
    }
 };
