@@ -70,10 +70,6 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    {
       if (this.IsReady ())
       {
-         if (pNotice.pData.pChild != null && pNotice.pData.pChild.wClass_Object == 73 && pNotice.pData.pChild.twObjectIx == this.#twObjectIx_PendingDelete)
-         {
-            this.#twObjectIx_PendingDelete = 0;
-         }
       }
    }
 
@@ -97,8 +93,9 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    {
       if (this.IsReady ())
       {
-         if (pNotice.pData.pChild != null)
+         if (pNotice.pData.wClass_Object == 73 && pNotice.pData.twObjectIx == this.#twObjectIx_PendingDelete)
          {
+            this.#twObjectIx_PendingDelete = 0;
          }
       }
    }
@@ -524,6 +521,21 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       }
    }
 
+   onRSPParent (pIAction, Param)
+   {
+      if (pIAction.pResponse.nResult == 0)
+      {
+         this.bReparent = false;
+         console.log ('SUCCESS: Parent');
+      }
+      else
+      {
+         console.log ('ERROR: Parent - ' + pIAction.pResponse.nResult);         
+
+         this.bReparent = false;
+      }
+   }
+
    async WaitForSingleObject (fnCond, interval)
    {
       return new Promise ((resolve) => {
@@ -544,6 +556,11 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    CheckPending ()
    {
       return !this.#bPending; // True means stop, False continues
+   }
+
+   CheckParent ()
+   {
+      return !this.bReparent; // True means stop, False continues
    }
 
    CheckStack ()
@@ -578,7 +595,15 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
             Payload.wClass       = pRMXObject_Parent.wClass_Object;
             Payload.twObjectIx   = pRMXObject_Parent.twObjectIx;
 
-            pIAction.Send (this, this.onRSPGeneric.bind (this));
+            this.bReparent = true;
+            this.nStack++;
+
+            console.log ('Waiting on Parent.... ' + pRMXObject_Parent.twObjectIx);
+            pIAction.Send (this, this.onRSPParent.bind (this));
+            await this.WaitForSingleObject (this.CheckParent.bind (this), 125);
+            console.log ('Parent Waiting complete....');
+
+            this.nStack--;
 
             delete mpRemovedNodes[pJSONObject.twObjectIx];
          }
@@ -679,7 +704,9 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
    async RemoveRMPObject (mpRemovedNodes)
    {
+      console.log ('Waiting for Stack...');
       await this.WaitForSingleObject (this.CheckStack.bind (this), 125);
+      console.log ('Waiting Complete...(stack)');
 
       for (let twObjectIx in mpRemovedNodes)
       {
@@ -699,12 +726,15 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
          this.#twObjectIx_PendingDelete = pRMPObject.twObjectIx;
          pIAction.Send (this, this.onRSPClose);
 
+         console.log ('Waiting for Close...');
          await this.WaitForSingleObject (this.CheckClose.bind (this), 125);
+         console.log ('Waiting Complete...(close)');
       }
 
       this.UpdateEditor ();
 
       ClosePublishModal ();
+      console.log ('Publish Complete!');
    }
 
    onPublish ()

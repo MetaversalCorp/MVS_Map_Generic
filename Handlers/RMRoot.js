@@ -82,6 +82,7 @@ class HndlrRMRoot extends MVHANDLER
                SqlData: {
                   sProc: 'set_RMRoot_RMPObject_Open',
                   aData: [ 'twRMRootIx',
+                           'Name_wsRMPObjectId',
                            'Type_bType', 'Type_bSubtype', 'Type_bFiction', 'Type_bMovable',
                            'Owner_twRPersonaIx', 
                            'Resource_qwResource', 'Resource_sName', 'Resource_sReference', 

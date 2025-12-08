@@ -4,7 +4,7 @@
 ~~                                                 MySQL Database Creation Script                                             ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 -- Rename [{MVD_RP1_Map}] to your desired database name
@@ -40,10 +40,38 @@ USE MVD_RP1_Map;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~                                                                                                                            ~~
+~~                                                   MVD_RP1_Map : Admin.sql                                                  ~~
+~~                                                                                                                            ~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*
+   For now, anyone in this table is considered an admin and can do all adminy stuff
+*/
+
+CREATE TABLE Admin
+(
+   twRPersonaIx                        BIGINT            NOT NULL,
+
+   CONSTRAINT PK_Admin PRIMARY KEY
+   (
+      twRPersonaIx                     ASC
+   )
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO Admin
+       ( twRPersonaIx )
+VALUES ( 1            );
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~                                                                                                                            ~~
 ~~                                                 MVD_RP1_Map : RMCObject.sql                                                ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 CREATE TABLE RMCType
@@ -210,7 +238,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ~~                                                 MVD_RP1_Map : RMPObject.sql                                                ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 CREATE TABLE RMPType
@@ -316,7 +344,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ~~                                                  MVD_RP1_Map : RMRoot.sql                                                  ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 CREATE TABLE RMRoot
@@ -389,7 +417,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ~~                                                MVD_RP1_Map : RMTBuilding.sql                                               ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 CREATE TABLE RMTBuilding
@@ -411,7 +439,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ~~                                                 MVD_RP1_Map : RMTMatrix.sql                                                ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 CREATE TABLE RMTSubsurface
@@ -470,7 +498,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ~~                                                 MVD_RP1_Map : RMTObject.sql                                                ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 CREATE TABLE RMTType
@@ -593,7 +621,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ~~                                                 MVD_RP1_Map : ArcLength.sql                                                ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -639,7 +667,7 @@ DELIMITER ;
 ~~                                              MVD_RP1_Map : DateTime2_Time.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 -- TIME reports time in 1/64 sec from UTC Jan 1, 1601
@@ -685,7 +713,7 @@ DELIMITER ;
 ~~                                              MVD_RP1_Map : Date_DateTime2.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 -- DATETIME2  reports time in 1/10000000 sec from UTC Jan 1, 0001
@@ -715,7 +743,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Bound.sql                                               ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -777,7 +805,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Double.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -842,7 +870,7 @@ DELIMITER ;
 ~~                                              MVD_RP1_Map : Format_Double3.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -867,7 +895,7 @@ DELIMITER ;
 ~~                                              MVD_RP1_Map : Format_Double4.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -893,7 +921,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Float.sql                                               ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -959,7 +987,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Name_C.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -982,7 +1010,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Name_P.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1005,7 +1033,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Name_R.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1028,7 +1056,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Name_T.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1051,7 +1079,7 @@ DELIMITER ;
 ~~                                             MVD_RP1_Map : Format_ObjectHead.sql                                            ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1079,7 +1107,7 @@ DELIMITER ;
 ~~                                             MVD_RP1_Map : Format_Orbit_Spin.sql                                            ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1105,7 +1133,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Owner.sql                                               ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1128,7 +1156,7 @@ DELIMITER ;
 ~~                                            MVD_RP1_Map : Format_Properties_C.sql                                           ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1155,7 +1183,7 @@ DELIMITER ;
 ~~                                            MVD_RP1_Map : Format_Properties_T.sql                                           ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1181,7 +1209,7 @@ DELIMITER ;
 ~~                                              MVD_RP1_Map : Format_Resource.sql                                             ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1227,7 +1255,7 @@ DELIMITER ;
 ~~                                             MVD_RP1_Map : Format_Transform.sql                                             ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1259,7 +1287,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Type_C.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1284,7 +1312,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Type_P.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1310,7 +1338,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Format_Type_T.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1332,10 +1360,10 @@ DELIMITER ;
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~                                                                                                                            ~~
-~~                                                MVD_RP1_Friends : IPstob.sql                                                ~~
+~~                                                  MVD_RP1_Map : IPstob.sql                                                  ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                              Copyright 2023-2024 Metaversal Corporation. All rights reserved.                              ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1445,7 +1473,7 @@ DELIMITER ;
 ~~                                               MVD_RP1_Map : Time_Current.sql                                               ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 -- This function is really Date_Current
@@ -1469,7 +1497,7 @@ DELIMITER ;
 ~~                                              MVD_RP1_Map : Time_DateTime2.sql                                              ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 -- DATETIME2  reports time in 1/10000000 sec from UTC Jan 1, 0001
@@ -1662,7 +1690,7 @@ DELIMITER ;
 ~~                                        MVD_RP1_Map : call_RMPObject_Event_Bound.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1734,7 +1762,7 @@ DELIMITER ;
 ~~                                         MVD_RP1_Map : call_RMPObject_Event_Name.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1800,7 +1828,7 @@ DELIMITER ;
 ~~                                        MVD_RP1_Map : call_RMPObject_Event_Owner.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1866,7 +1894,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMPObject_Event_Resource.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -1938,7 +1966,7 @@ DELIMITER ;
 ~~                                   MVD_RP1_Map : call_RMPObject_Event_RMPObject_Close.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2000,7 +2028,7 @@ DELIMITER ;
 ~~                                    MVD_RP1_Map : call_RMPObject_Event_RMPObject_Open.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2131,7 +2159,7 @@ DELIMITER ;
 ~~                                      MVD_RP1_Map : call_RMPObject_Event_Transform.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2224,7 +2252,7 @@ DELIMITER ;
 ~~                                         MVD_RP1_Map : call_RMPObject_Event_Type.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2330,7 +2358,7 @@ DELIMITER ;
 ~~                                           MVD_RP1_Map : call_RMPObject_Select.sql                                          ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2418,7 +2446,7 @@ DELIMITER ;
 ~~                                          MVD_RP1_Map : call_RMPObject_Validate.sql                                         ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2432,7 +2460,13 @@ CREATE PROCEDURE call_RMPObject_Validate
    INOUT nError                        INT
 )
 BEGIN
+       DECLARE bAdmin INT DEFAULT 0;
        DECLARE nCount INT;
+
+            IF EXISTS (SELECT 1 FROM Admin AS a WHERE a.twRPersonaIx = twRPersonaIx)
+          THEN
+                    SET bAdmin = 1;
+        END IF ;
 
         SELECT o.ObjectHead_Parent_wClass, o.ObjectHead_Parent_twObjectIx
           INTO   ObjectHead_Parent_wClass,   ObjectHead_Parent_twObjectIx
@@ -2450,8 +2484,8 @@ BEGIN
         ELSEIF nCount <> 1
           THEN
                    CALL call_Error (3, 'twRMPObjectIx is unknown', nError);
-        ELSEIF twRPersonaIx <> twRPersonaIx
-          THEN                                                                -- TBD
+        ELSEIF bAdmin = 0
+          THEN
                    CALL call_Error (4, 'Invalid rights',           nError);
         END IF ;
 END$$
@@ -2464,7 +2498,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMPObject_Validate_Bound.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2520,7 +2554,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMPObject_Validate_Name.sql                                       ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2548,7 +2582,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMPObject_Validate_Owner.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2579,7 +2613,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMPObject_Validate_Resource.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2619,7 +2653,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMPObject_Validate_Transform.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -2700,7 +2734,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMPObject_Validate_Type.sql                                       ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -3308,6 +3342,8 @@ BEGIN
            SET twRPersonaIx  = IFNULL (twRPersonaIx,  0);
            SET twRMPObjectIx = IFNULL (twRMPObjectIx, 0);
 
+SELECT GET_LOCK ('parent', 10);
+
          START TRANSACTION;
 
           CALL call_RMPObject_Validate (twRPersonaIx, twRMPObjectIx, ObjectHead_Parent_wClass, ObjectHead_Parent_twObjectIx, nError);
@@ -3409,8 +3445,6 @@ BEGIN
 
                      IF bError = 0
                    THEN
-
-
                           UPDATE RMPObject
                              SET ObjectHead_Parent_wClass     = wClass,
                                  ObjectHead_Parent_twObjectIx = twObjectIx
@@ -3474,6 +3508,8 @@ BEGIN
           ELSE
                  COMMIT ;
         END IF ;
+
+SELECT RELEASE_LOCK ('parent');
 
           DROP TEMPORARY TABLE Error;
           DROP TEMPORARY TABLE Event;
@@ -4106,7 +4142,7 @@ DELIMITER ;
 ~~                                            MVD_RP1_Map : call_RMTMatrix_Car.sql                                            ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4157,7 +4193,7 @@ DELIMITER ;
 ~~                                            MVD_RP1_Map : call_RMTMatrix_Cyl.sql                                            ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4242,7 +4278,7 @@ DELIMITER ;
 ~~                                            MVD_RP1_Map : call_RMTMatrix_Geo.sql                                            ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4330,7 +4366,7 @@ DELIMITER ;
 ~~                                          MVD_RP1_Map : call_RMTMatrix_Inverse.sql                                          ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4419,7 +4455,7 @@ DELIMITER ;
 ~~                                            MVD_RP1_Map : call_RMTMatrix_Mult.sql                                           ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4463,7 +4499,7 @@ DELIMITER ;
 ~~                                            MVD_RP1_Map : call_RMTMatrix_Nul.sql                                            ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4523,7 +4559,7 @@ DELIMITER ;
 ~~                                          MVD_RP1_Map : call_RMTMatrix_Relative.sql                                         ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4698,7 +4734,7 @@ DELIMITER ;
 ~~                                           MVD_RP1_Map : call_RMTMatrix_Rotate.sql                                          ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4764,7 +4800,7 @@ DELIMITER ;
 ~~                                           MVD_RP1_Map : call_RMTMatrix_Scale.sql                                           ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4829,7 +4865,7 @@ DELIMITER ;
 ~~                                         MVD_RP1_Map : call_RMTMatrix_Translate.sql                                         ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -4928,7 +4964,7 @@ DELIMITER ;
 ~~                                        MVD_RP1_Map : call_RMTObject_Event_Bound.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5000,7 +5036,7 @@ DELIMITER ;
 ~~                                         MVD_RP1_Map : call_RMTObject_Event_Name.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5066,7 +5102,7 @@ DELIMITER ;
 ~~                                        MVD_RP1_Map : call_RMTObject_Event_Owner.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5132,7 +5168,7 @@ DELIMITER ;
 ~~                                      MVD_RP1_Map : call_RMTObject_Event_Properties.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5207,7 +5243,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMTObject_Event_Resource.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5279,7 +5315,7 @@ DELIMITER ;
 ~~                                   MVD_RP1_Map : call_RMTObject_Event_RMPObject_Close.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5341,7 +5377,7 @@ DELIMITER ;
 ~~                                    MVD_RP1_Map : call_RMTObject_Event_RMPObject_Open.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5472,7 +5508,7 @@ DELIMITER ;
 ~~                                   MVD_RP1_Map : call_RMTObject_Event_RMTObject_Close.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5544,7 +5580,7 @@ DELIMITER ;
 ~~                                    MVD_RP1_Map : call_RMTObject_Event_RMTObject_Open.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5679,7 +5715,7 @@ DELIMITER ;
 ~~                                      MVD_RP1_Map : call_RMTObject_Event_Transform.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5772,7 +5808,7 @@ DELIMITER ;
 ~~                                         MVD_RP1_Map : call_RMTObject_Event_Type.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5875,7 +5911,7 @@ DELIMITER ;
 ~~                                           MVD_RP1_Map : call_RMTObject_Select.sql                                          ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5970,7 +6006,7 @@ DELIMITER ;
 ~~                                          MVD_RP1_Map : call_RMTObject_Validate.sql                                         ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -5984,7 +6020,13 @@ CREATE PROCEDURE call_RMTObject_Validate
    INOUT nError                        INT
 )
 BEGIN
+       DECLARE bAdmin INT DEFAULT 0;
        DECLARE nCount INT;
+
+            IF EXISTS (SELECT 1 FROM Admin AS a WHERE a.twRPersonaIx = twRPersonaIx)
+          THEN
+                    SET bAdmin = 1;
+        END IF ;
 
         SELECT o.ObjectHead_Parent_wClass, o.ObjectHead_Parent_twObjectIx
           INTO   ObjectHead_Parent_wClass,   ObjectHead_Parent_twObjectIx
@@ -6002,8 +6044,8 @@ BEGIN
         ELSEIF nCount <> 1
           THEN
                    CALL call_Error (3, 'twRMTObjectIx is unknown', nError);
-        ELSEIF twRPersonaIx <> twRPersonaIx
-          THEN                                                                -- TBD
+        ELSEIF bAdmin = 0
+          THEN
                    CALL call_Error (4, 'Invalid rights',           nError);
         END IF ;
 END$$
@@ -6016,7 +6058,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMTObject_Validate_Bound.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6072,7 +6114,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMTObject_Validate_Coord_Car.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6118,7 +6160,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMTObject_Validate_Coord_Cyl.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6170,7 +6212,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMTObject_Validate_Coord_Geo.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6225,7 +6267,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMTObject_Validate_Coord_Nul.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6306,7 +6348,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMTObject_Validate_Name.sql                                       ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6334,7 +6376,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMTObject_Validate_Owner.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6365,7 +6407,7 @@ DELIMITER ;
 ~~                                    MVD_RP1_Map : call_RMTObject_Validate_Properties.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6423,7 +6465,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMTObject_Validate_Resource.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6463,7 +6505,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMTObject_Validate_Transform.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6544,7 +6586,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMTObject_Validate_Type.sql                                       ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -6750,7 +6792,7 @@ DELIMITER ;
 ~~                                             MVD_RP1_Map : search_RMTObject.sql                                             ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -8390,7 +8432,7 @@ DELIMITER ;
 ~~                                        MVD_RP1_Map : call_RMCObject_Event_Bound.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -8462,7 +8504,7 @@ DELIMITER ;
 ~~                                         MVD_RP1_Map : call_RMCObject_Event_Name.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -8528,7 +8570,7 @@ DELIMITER ;
 ~~                                      MVD_RP1_Map : call_RMCObject_Event_Orbit_Spin.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -8603,7 +8645,7 @@ DELIMITER ;
 ~~                                        MVD_RP1_Map : call_RMCObject_Event_Owner.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -8669,7 +8711,7 @@ DELIMITER ;
 ~~                                      MVD_RP1_Map : call_RMCObject_Event_Properties.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -8747,7 +8789,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMCObject_Event_Resource.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -8819,7 +8861,7 @@ DELIMITER ;
 ~~                                   MVD_RP1_Map : call_RMCObject_Event_RMCObject_Close.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -8876,7 +8918,7 @@ DELIMITER ;
 ~~                                    MVD_RP1_Map : call_RMCObject_Event_RMCObject_Open.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9024,7 +9066,7 @@ DELIMITER ;
 ~~                                   MVD_RP1_Map : call_RMCObject_Event_RMTObject_Close.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9096,7 +9138,7 @@ DELIMITER ;
 ~~                                    MVD_RP1_Map : call_RMCObject_Event_RMTObject_Open.sql                                   ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9232,7 +9274,7 @@ DELIMITER ;
 ~~                                      MVD_RP1_Map : call_RMCObject_Event_Transform.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9325,7 +9367,7 @@ DELIMITER ;
 ~~                                         MVD_RP1_Map : call_RMCObject_Event_Type.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9428,7 +9470,7 @@ DELIMITER ;
 ~~                                           MVD_RP1_Map : call_RMCObject_Select.sql                                          ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9529,7 +9571,7 @@ DELIMITER ;
 ~~                                          MVD_RP1_Map : call_RMCObject_Validate.sql                                         ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9543,7 +9585,13 @@ CREATE PROCEDURE call_RMCObject_Validate
    INOUT nError                        INT
 )
 BEGIN
+       DECLARE bAdmin INT DEFAULT 0;
        DECLARE nCount INT;
+
+            IF EXISTS (SELECT 1 FROM Admin AS a WHERE a.twRPersonaIx = twRPersonaIx)
+          THEN
+                    SET bAdmin = 1;
+        END IF ;
 
         SELECT o.ObjectHead_Parent_wClass, o.ObjectHead_Parent_twObjectIx
           INTO   ObjectHead_Parent_wClass,   ObjectHead_Parent_twObjectIx
@@ -9561,8 +9609,8 @@ BEGIN
         ELSEIF nCount <> 1
           THEN
                    CALL call_Error (3, 'twRMCObjectIx is unknown', nError);
-        ELSEIF twRPersonaIx <> twRPersonaIx
-          THEN                                                                -- TBD
+        ELSEIF bAdmin = 0
+          THEN
                    CALL call_Error (4, 'Invalid rights',           nError);
         END IF ;
 END$$
@@ -9575,7 +9623,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMCObject_Validate_Bound.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9631,7 +9679,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMCObject_Validate_Name.sql                                       ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9659,7 +9707,7 @@ DELIMITER ;
 ~~                                    MVD_RP1_Map : call_RMCObject_Validate_Orbit_Spin.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9724,7 +9772,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMCObject_Validate_Owner.sql                                      ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9755,7 +9803,7 @@ DELIMITER ;
 ~~                                    MVD_RP1_Map : call_RMCObject_Validate_Properties.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9822,7 +9870,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMCObject_Validate_Resource.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9864,7 +9912,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMCObject_Validate_Transform.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -9945,7 +9993,7 @@ DELIMITER ;
 ~~                                       MVD_RP1_Map : call_RMCObject_Validate_Type.sql                                       ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -10140,7 +10188,7 @@ DELIMITER ;
 ~~                                             MVD_RP1_Map : search_RMCObject.sql                                             ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -11840,7 +11888,7 @@ DELIMITER ;
 ~~                                          MVD_RP1_Map : call_RMRoot_Event_Name.sql                                          ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -11906,7 +11954,7 @@ DELIMITER ;
 ~~                                          MVD_RP1_Map : call_RMRoot_Event_Owner.sql                                         ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -11972,7 +12020,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMRoot_Event_RMCObject_Close.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12030,7 +12078,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMRoot_Event_RMCObject_Open.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12179,7 +12227,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMRoot_Event_RMPObject_Close.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12241,7 +12289,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMRoot_Event_RMPObject_Open.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12372,7 +12420,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMRoot_Event_RMTObject_Close.sql                                    ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12430,7 +12478,7 @@ DELIMITER ;
 ~~                                     MVD_RP1_Map : call_RMRoot_Event_RMTObject_Open.sql                                     ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12597,7 +12645,7 @@ DELIMITER ;
 ~~                                            MVD_RP1_Map : call_RMRoot_Select.sql                                            ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12648,7 +12696,7 @@ DELIMITER ;
 ~~                                           MVD_RP1_Map : call_RMRoot_Validate.sql                                           ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12662,7 +12710,13 @@ CREATE PROCEDURE call_RMRoot_Validate
    INOUT nError                        INT
 )
 BEGIN
+       DECLARE bAdmin INT DEFAULT 0;
        DECLARE nCount INT;
+
+            IF EXISTS (SELECT 1 FROM Admin AS a WHERE a.twRPersonaIx = twRPersonaIx)
+          THEN
+                    SET bAdmin = 1;
+        END IF ;
 
         SELECT o.ObjectHead_Parent_wClass, o.ObjectHead_Parent_twObjectIx
           INTO   ObjectHead_Parent_wClass,   ObjectHead_Parent_twObjectIx
@@ -12680,8 +12734,8 @@ BEGIN
         ELSEIF nCount <> 1
           THEN
                    CALL call_Error (3, 'twRMRootIx is unknown',   nError);
-        ELSEIF twRPersonaIx <> twRPersonaIx
-          THEN                                                             -- TBD
+        ELSEIF bAdmin = 0
+          THEN
                    CALL call_Error (4, 'Invalid rights',          nError);
         END IF ;
 END$$
@@ -12694,7 +12748,7 @@ DELIMITER ;
 ~~                                         MVD_RP1_Map : call_RMRoot_Validate_Name.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$
@@ -12722,7 +12776,7 @@ DELIMITER ;
 ~~                                        MVD_RP1_Map : call_RMRoot_Validate_Owner.sql                                        ~~
 ~~                                                                                                                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            ~~
+~~                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            ~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 DELIMITER $$

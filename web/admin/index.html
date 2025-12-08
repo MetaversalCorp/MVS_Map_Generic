@@ -19,15 +19,15 @@
    <script type="text/javascript" src="js/vendor/jquery-3.3.1.js"></script>
    <script type="text/javascript" src="js/vendor/cdn.socket.io_4.8.1_socket.io.min.js"></script>
 
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVMF.js"></script>
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVSB.js"></script>
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVRest.js"></script>
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVXP.js"></script>
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVIO.js"></script>
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVRP.js"></script>
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVRP_Dev.js"></script>
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVRP_Fabric.js"></script>
-   <script type="text/javascript" src="https://cdn2_server3.rp1.dev/js/mv/MVRP_Map.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVMF.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVSB.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVRest.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVXP.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVIO.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVRP.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVRP_Dev.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVRP_Fabric.js"></script>
+   <script type="text/javascript" src="https://cdn2.rp1.com/js/mv/MVRP_Map.js"></script>
 
    <!-- App -->
    <script src="js/rp1.js"></script>
@@ -66,7 +66,7 @@
                   <ul class="dropdown-menu">
                      <li>
                         <div class="dropdown-item py-2">
-                           <select class="form-select jsPObject mb-3" aria-label="Select a scene">
+                           <select id="sceneSelect" class="form-select jsPObject mb-3" aria-label="Select a scene">
 <!--                              <option value="0">&lt;New Scene&gt;</option>
 -->                              
                            </select>
@@ -186,9 +186,7 @@
    <div class="offcanvas offcanvas-end mt-5 rounded-start-4 border-top bg-dark bg-opacity-75 blur" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="codeEditorPanel" aria-labelledby="codeEditorPanel">
       <div class="offcanvas-resize-handle" id="codeEditorResizeHandle"></div>
       <div class="offcanvas-header d-flex justify-content-between pb-0">
-         <label for="codeEditor" class="form-label">
             <h5 class="offcanvas-title m-0 p-0 user-select-none">Code Editor</h5>
-         </label>
          <button type="button" class="btn-close p-1 rounded-2" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i></button>
       </div>
       <div class="offcanvas-body pt-2 pb-1" id="code">
