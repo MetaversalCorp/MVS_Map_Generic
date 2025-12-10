@@ -5220,27 +5220,24 @@ updateTransformButtonStates();
 // ===== Publish Scene Modal =====
 const publishSceneBtn = document.getElementById('publishScene');
 const publishingModal = document.getElementById('publishingModal');
+var g_pModal;
 
 if (publishSceneBtn && publishingModal) {
     publishSceneBtn.addEventListener('click', () => {
         // Show the publishing modal
-        const modal = new bootstrap.Modal (publishingModal, {
+        g_pModal = new bootstrap.Modal (publishingModal, {
             backdrop: 'static',
             keyboard: false
         });
-        modal.show ();
+        g_pModal.show ();
 
         g_pMap.onPublish ();
     });
 }
 
 function ClosePublishModal () {
-    const modalElement = document.getElementById('publishingModal');
-    if (!modalElement) return;
-
-    // Ensure we always have an instance to close even if it wasn't cached
-    const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
-    modalInstance.hide();
+    g_pModal.hide ();
+    console.log ('Publish Modal Closed!');
 }
 
 // Update button states periodically to handle code editor focus changes

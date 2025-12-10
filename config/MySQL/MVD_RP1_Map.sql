@@ -3291,6 +3291,7 @@ BEGIN
        DECLARE ObjectHead_Parent_wClass     SMALLINT;
        DECLARE ObjectHead_Parent_twObjectIx BIGINT;
        DECLARE nCount                       INT;
+       DECLARE nLock                        INT;
 
        DECLARE Name_wsRMPObjectId            VARCHAR (48);
        DECLARE Type_bType                    TINYINT UNSIGNED;
@@ -3342,7 +3343,7 @@ BEGIN
            SET twRPersonaIx  = IFNULL (twRPersonaIx,  0);
            SET twRMPObjectIx = IFNULL (twRMPObjectIx, 0);
 
-SELECT GET_LOCK ('parent', 10);
+SET nLock = GET_LOCK ('parent', 10);
 
          START TRANSACTION;
 
@@ -3509,7 +3510,7 @@ SELECT GET_LOCK ('parent', 10);
                  COMMIT ;
         END IF ;
 
-SELECT RELEASE_LOCK ('parent');
+SET nLock = RELEASE_LOCK ('parent');
 
           DROP TEMPORARY TABLE Error;
           DROP TEMPORARY TABLE Event;
