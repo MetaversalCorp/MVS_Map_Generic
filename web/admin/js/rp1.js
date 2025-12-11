@@ -41,6 +41,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
       this.#jPObject = this.jSelector.find ('.jsPObject');
       this.#jPObject.on ('change', this.onClick_Scene.bind (this));
+      this.jSelector.find ('.jsPublish').on ('click', this.onClick_Publish.bind (this));
 
       this.#m_pFabric = new MV.MVRP.MSF (sURL, MV.MVRP.MSF.eMETHOD.GET);
       this.#m_pFabric.Attach (this);
@@ -70,6 +71,12 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    {
       if (this.IsReady ())
       {
+         let pChild = pNotice.pData.pChild;
+
+         if (pChild && pChild.wClass_Object == 73 &&  pChild.twObjectIx == this.twObjectIx_Reparent)
+         {
+            this.nReparent--;
+         }
       }
    }
 
@@ -96,6 +103,15 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
          if (pNotice.pData.wClass_Object == 73 && pNotice.pData.twObjectIx == this.#twObjectIx_PendingDelete)
          {
             this.#twObjectIx_PendingDelete = 0;
+         }
+         else
+         {
+            let pChild = pNotice.pData.pChild;
+
+            if (pChild && pChild.wClass_Object == 73 &&  pChild.twObjectIx == this.twObjectIx_Reparent)
+            {
+               this.nReparent--;
+            }
          }
       }
    }
@@ -525,14 +541,14 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    {
       if (pIAction.pResponse.nResult == 0)
       {
-         this.bReparent = false;
          console.log ('SUCCESS: Parent');
       }
       else
       {
          console.log ('ERROR: Parent - ' + pIAction.pResponse.nResult);         
 
-         this.bReparent = false;
+         this.twObjectIx_Reparent = 0;
+         this.nReparent = 0;
       }
    }
 
@@ -560,7 +576,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
    CheckParent ()
    {
-      return !this.bReparent; // True means stop, False continues
+      return (this.nReparent <= 0); // True means stop, False continues
    }
 
    CheckStack ()
@@ -571,90 +587,6 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    CheckClose ()
    {
       return (this.#twObjectIx_PendingDelete == 0); // True means stop, False continues
-   }
-
-   async UpdateRMPObject (pJSONObject, pRMXObject_Parent, mpRemovedNodes, bRoot)
-   {
-      let bResult;
-      let pRMPObject;
-
-      this.nStack++;
-      if (pJSONObject.twObjectIx)
-      {
-         pRMPObject = this.#m_MapRMXItem['73' + '-' + pJSONObject.twObjectIx];
-
-         if (pRMPObject && pRMPObject.twParentIx == pRMXObject_Parent.twObjectIx && pRMPObject.wClass_Parent == pRMXObject_Parent.wClass_Object)
-         {
-            this.RMPEditAll (pRMPObject, pJSONObject);
-         }
-         else if (mpRemovedNodes[pJSONObject.twObjectIx])
-         {
-            let pIAction = pRMPObject.Request ('PARENT');
-            let Payload = pIAction.pRequest;
-
-            Payload.wClass       = pRMXObject_Parent.wClass_Object;
-            Payload.twObjectIx   = pRMXObject_Parent.twObjectIx;
-
-            this.bReparent = true;
-            this.nStack++;
-
-            console.log ('Waiting on Parent.... ' + pRMXObject_Parent.twObjectIx);
-            pIAction.Send (this, this.onRSPParent.bind (this));
-            await this.WaitForSingleObject (this.CheckParent.bind (this), 125);
-            console.log ('Parent Waiting complete....');
-
-            this.nStack--;
-
-            delete mpRemovedNodes[pJSONObject.twObjectIx];
-         }
-         else
-         {
-            pRMPObject = null;
-            console.log ('ERROR: twObjectIx (' + pJSONObject.twObjectIx + ') not found!');
-         }
-      }
-      else
-      {
-         let pIAction = pRMXObject_Parent.Request ('RMPOBJECT_OPEN');
-         let Payload = pIAction.pRequest;
-
-         if (this.RMCopy_Name (pJSONObject, Payload.pName) &&
-               this.RMCopy_Type ({ pType: { bType: 1, bSubtype: 0, bFiction: 0, bMovable: 0 } }, Payload.pType) &&
-               this.RMCopy_Owner ({ pOwner: { twRPersonaIx: 1 } }, Payload.pOwner) &&
-               this.RMCopy_Resource ({ pResource: { qwResource: 0, sName: ''} }, pJSONObject, Payload.pResource) &&
-               this.RMCopy_Bound (pJSONObject, Payload.pBound) &&
-               this.RMCopy_Transform (pJSONObject, Payload.pTransform))
-         {
-            this.#bPending = true;
-            this.nStack++;
-
-            pIAction.Send (this, this.onRSPOpen.bind (this));
-            await this.WaitForSingleObject (this.CheckPending.bind (this), 125);
-
-            this.nStack--;
-            pRMPObject = this.#pRMXPending;
-         }
-         else
-         {
-            pRMPObject = null;
-            console.log ('ERROR: twObjectIx (' + pJSONObject.twObjectIx + ') has invalid data!!!');
-         }
-      }
-
-      if (pRMPObject != null)
-      {
-         bResult = true;
-
-         for (let i=0; i < pJSONObject.aChildren.length; i++)
-         {
-            bResult = this.UpdateRMPObject (pJSONObject.aChildren[i], pRMPObject, mpRemovedNodes, false);
-         }
-      }
-      else bResult = false;
-
-      this.nStack--;
-
-      return bResult;
    }
 
    EnumNodes (pRMXObject, Param)
@@ -702,11 +634,123 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       }
    }
 
-   async RemoveRMPObject (mpRemovedNodes)
+   async UpdateRMPObject (pJSONObject, pRMXObject_Parent, mpRemovedNodes, pJSONObjectX)
    {
-      console.log ('Waiting for Stack...');
+      let bResult;
+      let pRMPObject;
+
+      console.log ('Waiting for Stack3...');
       await this.WaitForSingleObject (this.CheckStack.bind (this), 125);
-      console.log ('Waiting Complete...(stack)');
+      console.log ('Waiting Complete...(stack3)');
+
+      this.nStack++;
+      if (pJSONObject.twObjectIx)
+      {
+         pRMPObject = this.#m_MapRMXItem['73' + '-' + pJSONObject.twObjectIx];
+
+         if (pRMPObject && pRMPObject.twParentIx == pRMXObject_Parent.twObjectIx && pRMPObject.wClass_Parent == pRMXObject_Parent.wClass_Object)
+         {
+            this.RMPEditAll (pRMPObject, pJSONObject);
+         }
+         else if (mpRemovedNodes[pJSONObject.twObjectIx])
+         {
+            let pIAction = pRMPObject.Request ('PARENT');
+            let Payload = pIAction.pRequest;
+
+            Payload.wClass       = pRMXObject_Parent.wClass_Object;
+            Payload.twObjectIx   = pRMXObject_Parent.twObjectIx;
+
+            this.nReparent = 2;
+            this.nStack++;
+            this.twObjectIx_Reparent = pRMPObject.twObjectIx;
+
+            console.log ('Waiting on Parent.... ' + pRMXObject_Parent.twObjectIx);
+            pIAction.Send (this, this.onRSPParent.bind (this));
+            await this.WaitForSingleObject (this.CheckParent.bind (this), 125);
+            console.log ('Parent Waiting complete....');
+
+            this.nStack--;
+
+            delete mpRemovedNodes[pJSONObject.twObjectIx];
+         }
+         else
+         {
+            pRMPObject = null;
+            console.log ('ERROR: twObjectIx (' + pJSONObject.twObjectIx + ') not found!');
+         }
+      }
+      else
+      {
+         let pIAction = pRMXObject_Parent.Request ('RMPOBJECT_OPEN');
+         let Payload = pIAction.pRequest;
+
+         if (this.RMCopy_Name (pJSONObject, Payload.pName) &&
+               this.RMCopy_Type ({ pType: { bType: 1, bSubtype: 0, bFiction: 0, bMovable: 0 } }, Payload.pType) &&
+               this.RMCopy_Owner ({ pOwner: { twRPersonaIx: 1 } }, Payload.pOwner) &&
+               this.RMCopy_Resource ({ pResource: { qwResource: 0, sName: ''} }, pJSONObject, Payload.pResource) &&
+               this.RMCopy_Bound (pJSONObject, Payload.pBound) &&
+               this.RMCopy_Transform (pJSONObject, Payload.pTransform))
+         {
+            this.#bPending = true;
+            this.nStack++;
+
+            console.log ('Waiting on Add To.... ' + pRMXObject_Parent.twObjectIx);
+            pIAction.Send (this, this.onRSPOpen.bind (this));
+            await this.WaitForSingleObject (this.CheckPending.bind (this), 125);
+            console.log ('Waiting on Add To Complete.... ' + pRMXObject_Parent.twObjectIx);
+
+            this.nStack--;
+            pRMPObject = this.#pRMXPending;
+         }
+         else
+         {
+            pRMPObject = null;
+            console.log ('ERROR: twObjectIx (' + pJSONObject.twObjectIx + ') has invalid data!!!');
+         }
+      }
+
+      pJSONObjectX.bProcessed = true;
+
+      if (pRMPObject != null)
+      {
+         bResult = true;
+
+         for (let i=0; i < pJSONObject.aChildren.length; i++)
+         {
+            bResult = this.UpdateRMPObject (pJSONObject.aChildren[i], pRMPObject, mpRemovedNodes, pJSONObjectX.aChildren[i]);
+         }
+      }
+      else bResult = false;
+
+      this.nStack--;
+
+      return bResult;
+   }
+
+   CheckJSONXEx (pJSONObjectX)
+   {
+      let bResult = true;
+
+      if (pJSONObjectX.bProcessed)
+      {
+         for (let i=0; i < pJSONObjectX.aChildren.length && bResult; i++)
+            bResult = this.CheckJSONXEx (pJSONObjectX.aChildren[i]);
+      }
+      else bResult = false;
+
+      return bResult;
+   }
+
+   CheckJSONX (pJSONObjectX)
+   {
+      return this.CheckJSONXEx (pJSONObjectX); // True means stop, False continues
+   }
+
+   async RemoveRMPObject (mpRemovedNodes, pJSONObjectX)
+   {
+      console.log ('Update (waiting)...');
+      await this.WaitForSingleObject (this.CheckJSONX.bind (this, pJSONObjectX), 125);
+      console.log ('Update (Completed)');
 
       for (let twObjectIx in mpRemovedNodes)
       {
@@ -733,14 +777,21 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
       this.UpdateEditor ();
 
-      ClosePublishModal ();
+      this.jSelector.find ('.jsUnsaved').hide ();
       console.log ('Publish Complete!');
+   }
+
+   onClick_Publish (e)
+   {
+      this.jSelector.find ('.jsUnsaved').show ();
+      this.onPublish ();
    }
 
    onPublish ()
    {
       let sJSON = getJSONEditorText ();
       let pJSONObject = JSON.parse (sJSON);
+      let pJSONObjectX = JSON.parse (sJSON);
 
       this.nStack = 0;
       if (pJSONObject[0].twObjectIx == this.#pRMXRoot.twObjectIx)
@@ -748,14 +799,14 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
          let mpRemovedNodes = {};
 
          this.GetRemovedNodes (pJSONObject[0], this.#pRMXRoot, mpRemovedNodes);
-         this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, true);
-         this.RemoveRMPObject (mpRemovedNodes);
+         this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, pJSONObjectX[0]);
+         this.RemoveRMPObject (mpRemovedNodes, pJSONObjectX[0]);
       }
       else
       {
          let mpRemovedNodes = {};
 
-         this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, true);
+         this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, pJSONObjectX[0]);
       }
    }
 };

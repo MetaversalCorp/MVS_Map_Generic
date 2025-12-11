@@ -54,7 +54,6 @@
 </head>
 
 <body>
-
    <div class="position-absolute w-100 user-select-none pe-none z-1">
       <nav class="main navbar navbar-expand py-1 pe-auto">
          <div class="container-lg">
@@ -113,7 +112,7 @@
                   <button class="nav-link" id="exportJson"><i class="fa-solid fa-file-export" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Export JSON"></i></button>
                </li>
                <li class="nav-item">
-                  <button class="nav-link jsPublish" id="publishScene"><i class="fa-solid fa-floppy-disk" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Publish Scene"></i></button>
+                  <button class="nav-link jsPublish"><i class="fa-solid fa-floppy-disk" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Publish Scene"></i></button>
                </li>
             </ul>
             <button class="btn btn-sm btn-outline-secondary text-light bg-dark rounded-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#codeEditorPanel" aria-controls="codeEditorPanel"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Scene JSON" id="codeToggle"><i class="fa-solid fa-code"></i> Code Editor</button>
@@ -241,7 +240,7 @@
    </div>
 
    <!-- Saving Changes v2 -->
-   <div class="vh-100 vw-100 bg-dark bg-opacity-50 blur position-relative z-2" style="display:none" id="unsavedChanges" tabindex="-1">
+   <div class="vh-100 vw-100 bg-dark bg-opacity-50 blur position-relative z-2 jsUnsaved" style="display:none" tabindex="-1">
       <div class="modal-body text-center d-flex flex-column h-100 justify-content-center align-items-center">
          <i class="fa-solid fa-spinner fa-spin fa-3x mb-4 text-primary"></i>
          <h5 class="modal-title mb-0" id="publishingModalLabel">Publishing Your Scene...</h5>
