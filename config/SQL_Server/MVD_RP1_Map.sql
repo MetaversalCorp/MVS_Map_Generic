@@ -3,7 +3,7 @@
 **                                                 MVD_RP1_Map : Database.sql                                                 **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 -- Rename [{MVD_RP1_Map}] to new database name
@@ -71,7 +71,7 @@ GO
 **                                                MVD_RP1_Map : WebService.sql                                                **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE USER MapService FOR LOGIN [MV\MapService] WITH DEFAULT_SCHEMA = dbo
@@ -83,7 +83,7 @@ GO
 **                                                MVD_RP1_Map : WebService.sql                                                **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE USER WebService FOR LOGIN [MV\WebService] WITH DEFAULT_SCHEMA = dbo
@@ -92,10 +92,40 @@ GO
 /******************************************************************************************************************************/
 /*******************************************************************************************************************************
 **                                                                                                                            **
+**                                                   MVD_RP1_Map : Admin.sql                                                  **
+**                                                                                                                            **
+********************************************************************************************************************************
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
+*******************************************************************************************************************************/
+
+/*
+   For now, anyone in this table is considered an admin and can do all adminy stuff
+*/
+
+CREATE TABLE dbo.Admin
+(
+   twRPersonaIx                        BIGINT          NOT NULL,
+
+   CONSTRAINT PK_Admin PRIMARY KEY CLUSTERED
+   (
+      twRPersonaIx                     ASC
+   )
+)
+ON [PRIMARY]
+GO
+
+INSERT dbo.Admin
+       ( twRPersonaIx )
+VALUES ( 0            )
+GO
+
+/******************************************************************************************************************************/
+/*******************************************************************************************************************************
+**                                                                                                                            **
 **                                                 MVD_RP1_Map : RMCObject.sql                                                **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE TABLE dbo.RMCType
@@ -266,7 +296,7 @@ GO
 **                                                 MVD_RP1_Map : RMPObject.sql                                                **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE TABLE dbo.RMPType
@@ -376,7 +406,7 @@ GO
 **                                                  MVD_RP1_Map : RMRoot.sql                                                  **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE TABLE dbo.RMRoot
@@ -451,7 +481,7 @@ GO
 **                                                MVD_RP1_Map : RMTBuilding.sql                                               **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE TABLE dbo.RMTBuilding
@@ -473,7 +503,7 @@ GO
 **                                                 MVD_RP1_Map : RMTMatrix.sql                                                **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE TABLE dbo.RMTSubsurface
@@ -532,7 +562,7 @@ GO
 **                                                 MVD_RP1_Map : RMTObject.sql                                                **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE TABLE dbo.RMTType
@@ -658,7 +688,7 @@ GO
 **                                                 MVD_RP1_Map : ArcLength.sql                                                **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.ArcLength
@@ -701,7 +731,7 @@ GO
 **                                              MVD_RP1_Map : DateTime2_Time.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 -- TIME reports time in 1/64 sec from UTC Jan 1, 1601
@@ -744,7 +774,7 @@ GO
 **                                              MVD_RP1_Map : Date_DateTime2.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 -- DATETIME2  reports time in 1/10000000 sec from UTC Jan 1, 0001
@@ -779,10 +809,110 @@ GO
 /******************************************************************************************************************************/
 /*******************************************************************************************************************************
 **                                                                                                                            **
+**                                                MVD_RP1_Map : Decendant_C.sql                                               **
+**                                                                                                                            **
+********************************************************************************************************************************
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
+*******************************************************************************************************************************/
+
+CREATE FUNCTION dbo.Decendant_C
+(
+   @Ancestor_wClass            SMALLINT,
+   @Ancestor_twObjectIx        BIGINT,
+   @Descendant_wClass          SMALLINT,
+   @Descendant_twObjectIx      BIGINT
+)
+RETURNS INT
+AS
+BEGIN
+      DECLARE @nCount INT
+
+       ; WITH Tree AS
+              (
+                SELECT oa.ObjectHead_Parent_wClass,
+                       oa.ObjectHead_Parent_twObjectIx,
+                       oa.ObjectHead_Self_wClass,
+                       oa.ObjectHead_Self_twObjectIx
+                  FROM dbo.RMCObject AS oa
+                 WHERE oa.ObjectHead_Self_wClass     = @Descendant_wClass
+                   AND oa.ObjectHead_Self_twObjectIx = @Descendant_twObjectIx
+                       
+                 UNION ALL
+      
+                SELECT ob.ObjectHead_Parent_wClass,
+                       ob.ObjectHead_Parent_twObjectIx,
+                       ob.ObjectHead_Self_wClass,
+                       ob.ObjectHead_Self_twObjectIx
+                  FROM dbo.RMCObject AS ob
+                  JOIN Tree          AS t  ON t.ObjectHead_Parent_wClass     = ob.ObjectHead_Self_wClass
+                                          AND t.ObjectHead_Parent_twObjectIx = ob.ObjectHead_Self_twObjectIx
+              )
+       SELECT @nCount = COUNT (*)
+         FROM Tree
+        WHERE ObjectHead_Self_wClass     = @Ancestor_wClass
+          AND ObjectHead_Self_twObjectIx = @Ancestor_twObjectIx
+
+       RETURN @nCount
+  END
+GO
+
+/******************************************************************************************************************************/
+/*******************************************************************************************************************************
+**                                                                                                                            **
+**                                                MVD_RP1_Map : Decendant_T.sql                                               **
+**                                                                                                                            **
+********************************************************************************************************************************
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
+*******************************************************************************************************************************/
+
+CREATE FUNCTION dbo.Decendant_T
+(
+   @Ancestor_wClass            SMALLINT,
+   @Ancestor_twObjectIx        BIGINT,
+   @Descendant_wClass          SMALLINT,
+   @Descendant_twObjectIx      BIGINT
+)
+RETURNS INT
+AS
+BEGIN
+      DECLARE @nCount INT
+
+       ; WITH Tree AS
+              (
+                SELECT oa.ObjectHead_Parent_wClass,
+                       oa.ObjectHead_Parent_twObjectIx,
+                       oa.ObjectHead_Self_wClass,
+                       oa.ObjectHead_Self_twObjectIx
+                  FROM dbo.RMTObject AS oa
+                 WHERE oa.ObjectHead_Self_wClass     = @Descendant_wClass
+                   AND oa.ObjectHead_Self_twObjectIx = @Descendant_twObjectIx
+                       
+                 UNION ALL
+      
+                SELECT ob.ObjectHead_Parent_wClass,
+                       ob.ObjectHead_Parent_twObjectIx,
+                       ob.ObjectHead_Self_wClass,
+                       ob.ObjectHead_Self_twObjectIx
+                  FROM dbo.RMTObject AS ob
+                  JOIN Tree          AS t  ON t.ObjectHead_Parent_wClass     = ob.ObjectHead_Self_wClass
+                                          AND t.ObjectHead_Parent_twObjectIx = ob.ObjectHead_Self_twObjectIx
+              )
+       SELECT @nCount = COUNT (*)
+         FROM Tree
+        WHERE ObjectHead_Self_wClass     = @Ancestor_wClass
+          AND ObjectHead_Self_twObjectIx = @Ancestor_twObjectIx
+
+       RETURN @nCount
+  END
+GO
+
+/******************************************************************************************************************************/
+/*******************************************************************************************************************************
+**                                                                                                                            **
 **                                               MVD_RP1_Map : Format_Bound.sql                                               **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Bound
@@ -838,7 +968,7 @@ GO
 **                                               MVD_RP1_Map : Format_Double.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Double
@@ -892,7 +1022,7 @@ GO
 **                                              MVD_RP1_Map : Format_Double3.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Double3
@@ -914,7 +1044,7 @@ GO
 **                                              MVD_RP1_Map : Format_Double4.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Double4
@@ -937,7 +1067,7 @@ GO
 **                                               MVD_RP1_Map : Format_Float.sql                                               **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Float
@@ -991,7 +1121,7 @@ GO
 **                                               MVD_RP1_Map : Format_Name_C.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Name_C
@@ -1013,7 +1143,7 @@ GO
 **                                               MVD_RP1_Map : Format_Name_P.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Name_P
@@ -1035,7 +1165,7 @@ GO
 **                                               MVD_RP1_Map : Format_Name_R.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Name_R
@@ -1057,7 +1187,7 @@ GO
 **                                               MVD_RP1_Map : Format_Name_T.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Name_T
@@ -1079,7 +1209,7 @@ GO
 **                                             MVD_RP1_Map : Format_ObjectHead.sql                                            **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_ObjectHead
@@ -1111,7 +1241,7 @@ GO
 **                                             MVD_RP1_Map : Format_Orbit_Spin.sql                                            **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Orbit_Spin
@@ -1139,7 +1269,7 @@ GO
 **                                               MVD_RP1_Map : Format_Owner.sql                                               **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Owner
@@ -1161,7 +1291,7 @@ GO
 **                                            MVD_RP1_Map : Format_Properties_C.sql                                           **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Properties_C
@@ -1191,7 +1321,7 @@ GO
 **                                            MVD_RP1_Map : Format_Properties_T.sql                                           **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Properties_T
@@ -1219,7 +1349,7 @@ GO
 **                                              MVD_RP1_Map : Format_Resource.sql                                             **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Resource
@@ -1257,7 +1387,7 @@ GO
 **                                             MVD_RP1_Map : Format_Transform.sql                                             **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Transform
@@ -1290,7 +1420,7 @@ GO
 **                                               MVD_RP1_Map : Format_Type_C.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Type_C
@@ -1316,7 +1446,7 @@ GO
 **                                               MVD_RP1_Map : Format_Type_P.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Type_P
@@ -1344,7 +1474,7 @@ GO
 **                                               MVD_RP1_Map : Format_Type_T.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.Format_Type_T
@@ -1367,10 +1497,10 @@ GO
 /******************************************************************************************************************************/
 /*******************************************************************************************************************************
 **                                                                                                                            **
-**                                                MVD_RP1_Friends : IPstob.sql                                                **
+**                                                  MVD_RP1_Map : IPstob.sql                                                  **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                              Copyright 2023-2024 Metaversal Corporation. All rights reserved.                              **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE FUNCTION dbo.IPstob
@@ -1501,7 +1631,7 @@ GO
 **                                               MVD_RP1_Map : Time_Current.sql                                               **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 -- This function is really Date_Current
@@ -1522,7 +1652,7 @@ GO
 **                                              MVD_RP1_Map : Time_DateTime2.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 -- DATETIME2  reports time in 1/10000000 sec from UTC Jan 1, 0001
@@ -1722,7 +1852,7 @@ GO
 **                                        MVD_RP1_Map : call_RMPObject_Event_Bound.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Event_Bound
@@ -1797,7 +1927,7 @@ GO
 **                                         MVD_RP1_Map : call_RMPObject_Event_Name.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Event_Name
@@ -1866,7 +1996,7 @@ GO
 **                                        MVD_RP1_Map : call_RMPObject_Event_Owner.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Event_Owner
@@ -1935,7 +2065,7 @@ GO
 **                                       MVD_RP1_Map : call_RMPObject_Event_Resource.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Event_Resource
@@ -2010,7 +2140,7 @@ GO
 **                                   MVD_RP1_Map : call_RMPObject_Event_RMPObject_Close.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Event_RMPObject_Close
@@ -2075,7 +2205,7 @@ GO
 **                                    MVD_RP1_Map : call_RMPObject_Event_RMPObject_Open.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Event_RMPObject_Open
@@ -2209,7 +2339,7 @@ GO
 **                                      MVD_RP1_Map : call_RMPObject_Event_Transform.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Event_Transform
@@ -2305,7 +2435,7 @@ GO
 **                                         MVD_RP1_Map : call_RMPObject_Event_Type.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Event_Type
@@ -2415,7 +2545,7 @@ GO
 **                                           MVD_RP1_Map : call_RMPObject_Select.sql                                          **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Select
@@ -2503,7 +2633,7 @@ GO
 **                                          MVD_RP1_Map : call_RMPObject_Validate.sql                                         **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Validate
@@ -2518,7 +2648,11 @@ AS
 BEGIN
            SET NOCOUNT ON
 
-       DECLARE @nCount INT
+       DECLARE @bAdmin INT = 0,
+               @nCount INT
+
+            IF EXISTS (SELECT 1 FROM dbo.Admin WHERE twRPersonaIx = @twRPersonaIx)
+               SET @bAdmin = 1
 
         SELECT @ObjectHead_Parent_wClass     = ObjectHead_Parent_wClass,
                @ObjectHead_Parent_twObjectIx = ObjectHead_Parent_twObjectIx
@@ -2533,7 +2667,7 @@ BEGIN
                EXEC dbo.call_Error 2,  'twRMPObjectIx is invalid', @nError OUTPUT
        ELSE IF @nCount <> 1
                EXEC dbo.call_Error 3,  'twRMPObjectIx is unknown', @nError OUTPUT
-       ELSE IF @twRPersonaIx <> @twRPersonaIx                                             -- TBD
+       ELSE IF @bAdmin = 0
                EXEC dbo.call_Error 4,  'Invalid rights',           @nError OUTPUT
 
         RETURN @nError
@@ -2546,7 +2680,7 @@ GO
 **                                       MVD_RP1_Map : call_RMPObject_Validate_Bound.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Validate_Bound
@@ -2599,7 +2733,7 @@ GO
 **                                       MVD_RP1_Map : call_RMPObject_Validate_Name.sql                                       **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Validate_Name
@@ -2627,7 +2761,7 @@ GO
 **                                       MVD_RP1_Map : call_RMPObject_Validate_Owner.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Validate_Owner
@@ -2657,7 +2791,7 @@ GO
 **                                     MVD_RP1_Map : call_RMPObject_Validate_Resource.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Validate_Resource
@@ -2693,7 +2827,7 @@ GO
 **                                     MVD_RP1_Map : call_RMPObject_Validate_Transform.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Validate_Transform
@@ -2760,7 +2894,7 @@ GO
 **                                       MVD_RP1_Map : call_RMPObject_Validate_Type.sql                                       **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMPObject_Validate_Type
@@ -2848,7 +2982,7 @@ GO
 **                                               MVD_RP1_Map : get_RMPObject.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.get_RMPObject
@@ -3977,7 +4111,7 @@ GO
 **                                            MVD_RP1_Map : call_RMTMatrix_Car.sql                                            **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Car
@@ -4031,7 +4165,7 @@ GO
 **                                            MVD_RP1_Map : call_RMTMatrix_Cyl.sql                                            **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Cyl
@@ -4117,7 +4251,7 @@ GO
 **                                            MVD_RP1_Map : call_RMTMatrix_Geo.sql                                            **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Geo
@@ -4206,7 +4340,7 @@ GO
 **                                          MVD_RP1_Map : call_RMTMatrix_Inverse.sql                                          **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Inverse
@@ -4286,7 +4420,7 @@ GO
 **                                            MVD_RP1_Map : call_RMTMatrix_Mult.sql                                           **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Mult
@@ -4333,7 +4467,7 @@ GO
 **                                            MVD_RP1_Map : call_RMTMatrix_Nul.sql                                            **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Nul
@@ -4394,7 +4528,7 @@ GO
 **                                          MVD_RP1_Map : call_RMTMatrix_Relative.sql                                         **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Relative
@@ -4567,7 +4701,7 @@ GO
 **                                           MVD_RP1_Map : call_RMTMatrix_Rotate.sql                                          **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Rotate
@@ -4636,7 +4770,7 @@ GO
 **                                           MVD_RP1_Map : call_RMTMatrix_Scale.sql                                           **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Scale
@@ -4704,7 +4838,7 @@ GO
 **                                         MVD_RP1_Map : call_RMTMatrix_Translate.sql                                         **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTMatrix_Translate
@@ -4808,7 +4942,7 @@ GO
 **                                        MVD_RP1_Map : call_RMTObject_Event_Bound.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_Bound
@@ -4883,7 +5017,7 @@ GO
 **                                         MVD_RP1_Map : call_RMTObject_Event_Name.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_Name
@@ -4952,7 +5086,7 @@ GO
 **                                        MVD_RP1_Map : call_RMTObject_Event_Owner.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_Owner
@@ -5021,7 +5155,7 @@ GO
 **                                      MVD_RP1_Map : call_RMTObject_Event_Properties.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_Properties
@@ -5099,7 +5233,7 @@ GO
 **                                       MVD_RP1_Map : call_RMTObject_Event_Resource.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_Resource
@@ -5174,7 +5308,7 @@ GO
 **                                   MVD_RP1_Map : call_RMTObject_Event_RMPObject_Close.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_RMPObject_Close
@@ -5239,7 +5373,7 @@ GO
 **                                    MVD_RP1_Map : call_RMTObject_Event_RMPObject_Open.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_RMPObject_Open
@@ -5373,7 +5507,7 @@ GO
 **                                   MVD_RP1_Map : call_RMTObject_Event_RMTObject_Close.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_RMTObject_Close
@@ -5448,7 +5582,7 @@ GO
 **                                    MVD_RP1_Map : call_RMTObject_Event_RMTObject_Open.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_RMTObject_Open
@@ -5586,7 +5720,7 @@ GO
 **                                      MVD_RP1_Map : call_RMTObject_Event_Transform.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_Transform
@@ -5682,7 +5816,7 @@ GO
 **                                         MVD_RP1_Map : call_RMTObject_Event_Type.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Event_Type
@@ -5794,6 +5928,8 @@ GO
 
 CREATE PROCEDURE dbo.call_RMTObject_Parent_Geo
 (
+   @twRMTObjectIx_Root           BIGINT,
+   @bType_Min                    TINYINT,         -- least acceptable type for a parent subsurface (typically 6 = STATE)
    @dLatitude                    FLOAT (53),
    @dLongitude                   FLOAT (53),
    @dRadius                      FLOAT (53)
@@ -5839,8 +5975,8 @@ BEGIN
                )
       
         INSERT @Match
-             ( nStep, twRMTObjectIx )
-        SELECT 0,     1
+             ( nStep,  twRMTObjectIx      )
+        SELECT 0,     @twRMTObjectIx_Root
       
            SET @nCount = @@ROWCOUNT
       
@@ -5922,7 +6058,7 @@ SELECT *
   JOIN dbo.RMTObject AS o ON o.ObjectHead_Self_twObjectIx = m.twRMTObjectIx AND o.Type_bType = @bType AND o.Type_bSubtype = @bSubtype
 */
       
-            IF @bType >= 6 -- STATE
+            IF @bType >= @bType_Min
         SELECT @twRMTObjectIx = twRMTObjectIx
           FROM
              (
@@ -5953,7 +6089,7 @@ GO
 **                                           MVD_RP1_Map : call_RMTObject_Select.sql                                          **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Select
@@ -6048,7 +6184,7 @@ GO
 **                                          MVD_RP1_Map : call_RMTObject_Validate.sql                                         **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate
@@ -6063,7 +6199,11 @@ AS
 BEGIN
            SET NOCOUNT ON
 
-       DECLARE @nCount INT
+       DECLARE @bAdmin INT = 0,
+               @nCount INT
+
+            IF EXISTS (SELECT 1 FROM dbo.Admin WHERE twRPersonaIx = @twRPersonaIx)
+               SET @bAdmin = 1
 
         SELECT @ObjectHead_Parent_wClass     = ObjectHead_Parent_wClass,
                @ObjectHead_Parent_twObjectIx = ObjectHead_Parent_twObjectIx
@@ -6078,7 +6218,7 @@ BEGIN
                EXEC dbo.call_Error 2,  'twRMTObjectIx is invalid', @nError OUTPUT
        ELSE IF @nCount <> 1
                EXEC dbo.call_Error 3,  'twRMTObjectIx is unknown', @nError OUTPUT
-       ELSE IF @twRPersonaIx <> @twRPersonaIx                                             -- TBD
+       ELSE IF @bAdmin = 0
                EXEC dbo.call_Error 4,  'Invalid rights',           @nError OUTPUT
 
         RETURN @nError
@@ -6091,7 +6231,7 @@ GO
 **                                       MVD_RP1_Map : call_RMTObject_Validate_Bound.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Bound
@@ -6144,7 +6284,7 @@ GO
 **                                     MVD_RP1_Map : call_RMTObject_Validate_Coord_Car.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Coord_Car
@@ -6190,7 +6330,7 @@ GO
 **                                     MVD_RP1_Map : call_RMTObject_Validate_Coord_Cyl.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Coord_Cyl
@@ -6240,7 +6380,7 @@ GO
 **                                     MVD_RP1_Map : call_RMTObject_Validate_Coord_Geo.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Coord_Geo
@@ -6292,7 +6432,7 @@ GO
 **                                     MVD_RP1_Map : call_RMTObject_Validate_Coord_Nul.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Coord_Nul
@@ -6359,7 +6499,7 @@ GO
 **                                       MVD_RP1_Map : call_RMTObject_Validate_Name.sql                                       **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Name
@@ -6387,7 +6527,7 @@ GO
 **                                       MVD_RP1_Map : call_RMTObject_Validate_Owner.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Owner
@@ -6417,7 +6557,7 @@ GO
 **                                    MVD_RP1_Map : call_RMTObject_Validate_Properties.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Properties
@@ -6465,7 +6605,7 @@ GO
 **                                     MVD_RP1_Map : call_RMTObject_Validate_Resource.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Resource
@@ -6501,7 +6641,7 @@ GO
 **                                     MVD_RP1_Map : call_RMTObject_Validate_Transform.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Transform
@@ -6568,7 +6708,7 @@ GO
 **                                       MVD_RP1_Map : call_RMTObject_Validate_Type.sql                                       **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMTObject_Validate_Type
@@ -6648,7 +6788,7 @@ GO
 **                                               MVD_RP1_Map : get_RMTObject.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 /*
@@ -6848,7 +6988,7 @@ GO
 **                                             MVD_RP1_Map : search_RMTObject.sql                                             **
 **                                                                                                                             **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.search_RMTObject
@@ -6865,6 +7005,7 @@ AS
 BEGIN
             SET NOCOUNT ON
 
+       DECLARE @SBO_CLASS_RMTOBJECT                       INT = 72
        DECLARE @MVO_RMTOBJECT_TYPE_COMMUNITY              INT = 9
        DECLARE @MVO_RMTOBJECT_TYPE_PARCEL                 INT = 11
 
@@ -6921,12 +7062,13 @@ BEGIN
                                d.dDistance
                           FROM dbo.RMTObject AS o
                           JOIN dbo.RMTMatrix AS m ON m.bnMatrix = o.ObjectHead_Self_twObjectIx
-                   CROSS APPLY (SELECT POWER (CAST (4.0 AS FLOAT (53)), o.Type_bType - 7)           AS dFactor  ) AS f
-                   CROSS APPLY (SELECT dbo.ArcLength (@dRadius, @dX, @dY, @dZ, m.d03, m.d13, m.d23) AS dDistance) AS d
-
+                   CROSS APPLY (SELECT POWER (CAST (4.0 AS FLOAT (53)), o.Type_bType - 7)                                                             AS dFactor    ) AS f
+                   CROSS APPLY (SELECT dbo.ArcLength (@dRadius, @dX, @dY, @dZ, m.d03, m.d13, m.d23)                                                   AS dDistance  ) AS d
+                   CROSS APPLY (SELECT dbo.Decendant_T (@SBO_CLASS_RMTOBJECT, @twRMTObjectIx, o.ObjectHead_Self_wClass, o.ObjectHead_Self_twObjectIx) AS bDescendant) AS i
                          WHERE o.Name_wsRMTObjectId LIKE @sText + '%'
-                           AND    (o.Type_bType      BETWEEN @bType + 1 AND @MVO_RMTOBJECT_TYPE_COMMUNITY
+                           AND    (o.Type_bType  BETWEEN @bType + 1 AND @MVO_RMTOBJECT_TYPE_COMMUNITY
                                OR  o.Type_bType                           = @MVO_RMTOBJECT_TYPE_PARCEL)
+                           AND i.bDescendant           = 1
                       ORDER BY f.dFactor * d.dDistance, o.Name_wsRMTObjectId
 
                         SELECT o.ObjectHead_Parent_wClass     AS ObjectHead_wClass_Parent,  -- change client to new names
@@ -7104,7 +7246,7 @@ GO
 /******************************************************************************************************************************/
 /*******************************************************************************************************************************
 **                                                                                                                            **
-**                                         MVD_RP1_Map : set_RMTObject_Fabric_Close.sql                                        **
+**                                        MVD_RP1_Map : set_RMTObject_Fabric_Close.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
 **                              Copyright 2023-2025 Metaversal Corporation. All rights reserved.                              **
@@ -7354,7 +7496,7 @@ CREATE PROCEDURE dbo.set_RMTObject_Fabric_Open
 (
    @sIPAddress                   NVARCHAR (16),
    @twRPersonaIx                 BIGINT,
--- @twRMTObjectIx                BIGINT,
+   @twRMTObjectIx_Root           BIGINT,
    @Name_wsRMTObjectId           NVARCHAR (48),
    @Type_bType                   TINYINT,
 -- @Type_bSubtype                TINYINT,
@@ -7392,9 +7534,6 @@ BEGIN
 
            SET @twRPersonaIx  = ISNULL (@twRPersonaIx,  0)
         -- SET @twRMTObjectIx = ISNULL (@twRMTObjectIx, 0)
-
-           SET @Bound_dY      = (@Bound_dX + @Bound_dZ) / 4.0
-           SET @dC            = 6371000.0
 
        DECLARE @SBO_CLASS_RMTOBJECT                       INT = 72
        DECLARE @SBO_CLASS_RMPOBJECT                       INT = 73
@@ -7435,7 +7574,36 @@ BEGIN
    return the attachment point object index
 
 */
-      -- EXEC dbo.call_RMTObject_Validate @twRPersonaIx, @twRMTObjectIx, @ObjectHead_Parent_wClass OUTPUT, @ObjectHead_Parent_twObjectIx OUTPUT, @nError OUTPUT
+       -- EXEC dbo.call_RMTObject_Validate @twRPersonaIx, @twRMTObjectIx, @ObjectHead_Parent_wClass OUTPUT, @ObjectHead_Parent_twObjectIx OUTPUT, @nError OUTPUT
+
+           SET @Bound_dY         = (@Bound_dX + @Bound_dZ) / 4.0
+
+
+
+
+
+
+
+
+
+
+
+      -- space has been inserted to maintain file line symmetry with set_RMTObject_Fabric_Open_Misc
+
+
+
+
+
+
+
+
+
+
+            IF @twRMTObjectIx_Root = 1 -- Earth   (ROOT)
+         BEGIN
+                    SET @dC = 6371000.0
+           END
+          ELSE EXEC dbo.call_Error 99, 'twRMTObjectIx_Root is invalid', @nError OUTPUT
 
             IF @nError = 0
          BEGIN
@@ -7466,10 +7634,13 @@ BEGIN
                    FROM dbo.RMTSubsurface AS s
                    JOIN dbo.RMTObject     AS o ON o.ObjectHead_Self_twObjectIx = s.twRMTObjectIx
                   WHERE o.Type_bType = 11
-                    AND 2 * @dC * ASIN (SQRT (SQUARE (SIN ((RADIANS (s.dA) - RADIANS (@dA)) / 2)) + (COS (RADIANS (s.dA)) * COS (RADIANS (@dA)) * SQUARE (SIN ((RADIANS (s.dB) - RADIANS (@dB)) / 2))))) < IIF (o.Bound_dX > o.Bound_dZ, o.Bound_dX, o.Bound_dZ) + IIF (@Bound_dX > @Bound_dZ, @Bound_dX, @Bound_dZ)
+                    AND 2 * @dC * ASIN (SQRT (SQUARE (SIN ((RADIANS (s.dA) - RADIANS (@dA)) / 2)) + (COS (RADIANS (s.dA)) * COS (RADIANS (@dA)) * SQUARE (SIN ((RADIANS (s.dB) - RADIANS (@dB)) / 2))))) <         IIF (o.Bound_dX > o.Bound_dZ, o.Bound_dX, o.Bound_dZ) + IIF (@Bound_dX > @Bound_dZ, @Bound_dX, @Bound_dZ)
 
                      IF @nCount > 0
+
                         EXEC dbo.call_Error 97, 'Parcel overlaps with another parcel', @nError OUTPUT
+
+
            END
 
             IF @nError = 0
@@ -7481,7 +7652,7 @@ BEGIN
                 ELSE IF @bCoord = 1 -- @RMTMATRIX_COORD_CYL
                         EXEC dbo.call_Error 99, 'bCoord is invalid', @nError OUTPUT
                 ELSE IF @bCoord = 0 -- @RMTMATRIX_COORD_GEO
-                        EXEC @twRMTObjectIx = dbo.call_RMTObject_Parent_Geo @dA, @dB, @dC
+                        EXEC @twRMTObjectIx = dbo.call_RMTObject_Parent_Geo @twRMTObjectIx_Root, 6, @dA, @dB, @dC -- STATE
                    ELSE EXEC dbo.call_Error 99, 'bCoord is invalid', @nError OUTPUT
 
                      IF @twRMTObjectIx = 0
@@ -7509,7 +7680,7 @@ BEGIN
                                  @Transform_Rotation_dZ = 0,
                                  @Transform_Rotation_dW = COS (RADIANS (@Transform_Rotate) * 0.5)
 
-                            EXEC @bError = dbo.call_RMTObject_Event_RMPObject_Open @twRMTObjectIx_Open, '', @Type_bType, 255, 0, 0,  @Owner_twRPersonaIx,  @Resource_qwResource, @Resource_sName, @Resource_sReference,  0, 0, 0,  @Transform_Rotation_dX, @Transform_Rotation_dY, @Transform_Rotation_dZ, @Transform_Rotation_dW,  1, 1, 1,  @Bound_dX, @Bound_dY, @Bound_dZ,  @twRMPObjectIx_Open OUTPUT, 0
+                            EXEC @bError = dbo.call_RMTObject_Event_RMPObject_Open @twRMTObjectIx_Open, 'Attachment Point', @Type_bType, 255, 0, 0,  @Owner_twRPersonaIx,  @Resource_qwResource, @Resource_sName, @Resource_sReference,  0, 0, 0,  @Transform_Rotation_dX, @Transform_Rotation_dY, @Transform_Rotation_dZ, @Transform_Rotation_dW,  1, 1, 1,  @Bound_dX, @Bound_dY, @Bound_dZ,  @twRMPObjectIx_Open OUTPUT, 0
                               IF @bError = 0
                            BEGIN
                                    SELECT @SBO_CLASS_RMPOBJECT AS wClass,
@@ -7521,6 +7692,8 @@ BEGIN
                     END
                    ELSE EXEC dbo.call_Error -1, 'Failed to insert RMTObject'
            END
+
+
        
             IF @bCommit = 1
          BEGIN
@@ -7567,7 +7740,7 @@ CREATE PROCEDURE dbo.set_RMTObject_Fabric_Open
 (
    @sIPAddress                   NVARCHAR (16),
    @twRPersonaIx                 BIGINT,
--- @twRMTObjectIx                BIGINT,
+   @twRMTObjectIx_Root           BIGINT,
    @Name_wsRMTObjectId           NVARCHAR (48),
    @Type_bType                   TINYINT,
 -- @Type_bSubtype                TINYINT,
@@ -7605,9 +7778,6 @@ BEGIN
 
            SET @twRPersonaIx  = ISNULL (@twRPersonaIx,  0)
         -- SET @twRMTObjectIx = ISNULL (@twRMTObjectIx, 0)
-
-           SET @Bound_dY      = (@Bound_dX + @Bound_dZ) / 4.0
-           SET @dC            = 6371000.0
 
        DECLARE @SBO_CLASS_RMTOBJECT                       INT = 72
        DECLARE @SBO_CLASS_RMPOBJECT                       INT = 73
@@ -7648,7 +7818,36 @@ BEGIN
    return the attachment point object index
 
 */
-      -- EXEC dbo.call_RMTObject_Validate @twRPersonaIx, @twRMTObjectIx, @ObjectHead_Parent_wClass OUTPUT, @ObjectHead_Parent_twObjectIx OUTPUT, @nError OUTPUT
+       -- EXEC dbo.call_RMTObject_Validate @twRPersonaIx, @twRMTObjectIx, @ObjectHead_Parent_wClass OUTPUT, @ObjectHead_Parent_twObjectIx OUTPUT, @nError OUTPUT
+
+           SET @Bound_dY         = (@Bound_dX + @Bound_dZ) / 4.0
+
+DECLARE @nTry   INT = 10,
+        @nRetry INT = 1
+  WHILE @nTry > 0  AND  @nRetry > 0
+  BEGIN
+        SET @nTry  -= 1
+        SET @nRetry = 0
+
+           SET @Transform_Rotate = RAND () * 360.0           --   0.0 -> 360.0
+           SET @dA               = RAND () * 120.0 - 60.0    -- -60.0 ->  60.0
+           SET @dB               = RAND () * 340.0 + 10.0    --  10.0 -> 350.0
+            IF @db > 180.0
+               SET @dB -= 360.0
+
+            IF @twRMTObjectIx_Root = 5 -- Elysium (ROOT)
+         BEGIN
+                   EXEC dbo.call_Error 99, 'twRMTObjectIx_Root = 5 is not yet supported', @nError OUTPUT
+           END
+       ELSE IF @twRMTObjectIx_Root = 6 -- Karona  (ROOT)
+         BEGIN
+                    SET @dC = 6371000.0
+           END
+       ELSE IF @twRMTObjectIx_Root = 7 -- Simetra (ROOT)
+         BEGIN
+                    SET @dC = 3469400.0
+           END
+          ELSE EXEC dbo.call_Error 99, 'twRMTObjectIx_Root is invalid', @nError OUTPUT
 
             IF @nError = 0
          BEGIN
@@ -7671,6 +7870,23 @@ BEGIN
                    ELSE EXEC dbo.call_Error 99, 'bCoord is invalid', @nError OUTPUT
            END
 
+            IF @nError = 0  AND  @bCoord = 0 -- @RMTMATRIX_COORD_GEO
+         BEGIN
+                DECLARE @nCount INT
+
+                 SELECT @nCount = COUNT (*)
+                   FROM dbo.RMTSubsurface AS s
+                   JOIN dbo.RMTObject     AS o ON o.ObjectHead_Self_twObjectIx = s.twRMTObjectIx
+                  WHERE o.Type_bType = 11
+                    AND 2 * @dC * ASIN (SQRT (SQUARE (SIN ((RADIANS (s.dA) - RADIANS (@dA)) / 2)) + (COS (RADIANS (s.dA)) * COS (RADIANS (@dA)) * SQUARE (SIN ((RADIANS (s.dB) - RADIANS (@dB)) / 2))))) < 2500 -- IIF (o.Bound_dX > o.Bound_dZ, o.Bound_dX, o.Bound_dZ) + IIF (@Bound_dX > @Bound_dZ, @Bound_dX, @Bound_dZ)
+
+                     IF @nCount > 0
+  BEGIN
+                        EXEC dbo.call_Error 97, 'Parcel overlaps with another parcel', @nError OUTPUT
+        SET @nRetry = 1
+    END
+           END
+
             IF @nError = 0
          BEGIN
                      IF @bCoord = 3 -- @RMTMATRIX_COORD_NUL
@@ -7680,30 +7896,16 @@ BEGIN
                 ELSE IF @bCoord = 1 -- @RMTMATRIX_COORD_CYL
                         EXEC dbo.call_Error 99, 'bCoord is invalid', @nError OUTPUT
                 ELSE IF @bCoord = 0 -- @RMTMATRIX_COORD_GEO
-                        EXEC @twRMTObjectIx = dbo.call_RMTObject_Parent_Geo @dA, @dB, @dC
+                        EXEC @twRMTObjectIx = dbo.call_RMTObject_Parent_Geo @twRMTObjectIx_Root, 3, @dA, @dB, @dC -- LAND
                    ELSE EXEC dbo.call_Error 99, 'bCoord is invalid', @nError OUTPUT
 
                      IF @twRMTObjectIx = 0
                         EXEC dbo.call_Error 98, 'Coordinate is not within a mapped land area', @nError OUTPUT
            END
 
-            IF @nError = 0  AND  @bCoord = 0 -- @RMTMATRIX_COORD_GEO
-         BEGIN
-                DECLARE @nCount INT
-
-                 SELECT COUNT (*)
-                   FROM dbo.RMTSubsurface AS s
-                   JOIN dbo.RMTObject     AS o ON o.ObjectHead_Self_twObjectIx = s.twRMTObjectIx
-                  WHERE o.Type_bType = 11
-                    AND 2 * @dC * ASIN (SQRT (SQUARE (SIN ((RADIANS (s.dA) - RADIANS (@dA)) / 2)) + (COS (RADIANS (s.dA)) * COS (RADIANS (@dA)) * SQUARE (SIN ((RADIANS (s.dB) - RADIANS (@dB)) / 2))))) < IIF (o.Bound_dX > o.Bound_dZ, o.Bound_dX, o.Bound_dZ) + IIF (@Bound_dX > @Bound_dZ, @Bound_dX, @Bound_dZ)
-
-                     IF @nCount > 0
-                        EXEC dbo.call_Error 97, 'Parcel overlaps with another parcel', @nError OUTPUT
-           END
-
             IF @nError = 0
          BEGIN
-                   EXEC @bError = dbo.call_RMTObject_Event_RMTObject_Open @twRMTObjectIx,  @Name_wsRMTObjectId,  @MVO_RMTOBJECT_TYPE_PARCEL, 0, 0,  1,  0, '', '',  0, 0, 0,  0, 0, 0, 1,  1, 1, 1,  @Bound_dX, @Bound_dY, @Bound_dZ,  0, 0, 0, 0,  @twRMTObjectIx_Open OUTPUT
+                   EXEC @bError = dbo.call_RMTObject_Event_RMTObject_Open @twRMTObjectIx, @Name_wsRMTObjectId, @MVO_RMTOBJECT_TYPE_PARCEL, 0, 0,  1,  0, '', '',  0, 0, 0,  0, 0, 0, 1,  1, 1, 1,  @Bound_dX, @Bound_dY, @Bound_dZ,  0, 0, 0, 0,  @twRMTObjectIx_Open OUTPUT
                      IF @bError = 0
                   BEGIN
                               IF @bCoord = 3 -- @RMTMATRIX_COORD_NUL
@@ -7722,7 +7924,7 @@ BEGIN
                                  @Transform_Rotation_dZ = 0,
                                  @Transform_Rotation_dW = COS (RADIANS (@Transform_Rotate) * 0.5)
 
-                            EXEC @bError = dbo.call_RMTObject_Event_RMPObject_Open @twRMTObjectIx_Open,  @Type_bType, 255, 0, 0,  @Owner_twRPersonaIx,  @Resource_qwResource, @Resource_sName, @Resource_sReference,  0, 0, 0,  @Transform_Rotation_dX, @Transform_Rotation_dY, @Transform_Rotation_dZ, @Transform_Rotation_dW,  1, 1, 1,  @Bound_dX, @Bound_dY, @Bound_dZ,  @twRMPObjectIx_Open OUTPUT, 0
+                            EXEC @bError = dbo.call_RMTObject_Event_RMPObject_Open @twRMTObjectIx_Open, 'Attachment Point', @Type_bType, 255, 0, 0,  @Owner_twRPersonaIx,  @Resource_qwResource, @Resource_sName, @Resource_sReference,  0, 0, 0,  @Transform_Rotation_dX, @Transform_Rotation_dY, @Transform_Rotation_dZ, @Transform_Rotation_dW,  1, 1, 1,  @Bound_dX, @Bound_dY, @Bound_dZ,  @twRMPObjectIx_Open OUTPUT, 0
                               IF @bError = 0
                            BEGIN
                                    SELECT @SBO_CLASS_RMPOBJECT AS wClass,
@@ -7734,6 +7936,8 @@ BEGIN
                     END
                    ELSE EXEC dbo.call_Error -1, 'Failed to insert RMTObject'
            END
+
+    END -- retry
        
             IF @bCommit = 1
          BEGIN
@@ -8883,7 +9087,7 @@ GO
 **                                        MVD_RP1_Map : call_RMCObject_Event_Bound.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_Bound
@@ -8958,7 +9162,7 @@ GO
 **                                         MVD_RP1_Map : call_RMCObject_Event_Name.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_Name
@@ -9027,7 +9231,7 @@ GO
 **                                      MVD_RP1_Map : call_RMCObject_Event_Orbit_Spin.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_Orbit_Spin
@@ -9105,7 +9309,7 @@ GO
 **                                        MVD_RP1_Map : call_RMCObject_Event_Owner.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_Owner
@@ -9174,7 +9378,7 @@ GO
 **                                      MVD_RP1_Map : call_RMCObject_Event_Properties.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_Properties
@@ -9255,7 +9459,7 @@ GO
 **                                       MVD_RP1_Map : call_RMCObject_Event_Resource.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_Resource
@@ -9330,7 +9534,7 @@ GO
 **                                   MVD_RP1_Map : call_RMCObject_Event_RMCObject_Close.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_RMCObject_Close
@@ -9390,7 +9594,7 @@ GO
 **                                    MVD_RP1_Map : call_RMCObject_Event_RMCObject_Open.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_RMCObject_Open
@@ -9541,7 +9745,7 @@ GO
 **                                   MVD_RP1_Map : call_RMCObject_Event_RMTObject_Close.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_RMTObject_Close
@@ -9617,7 +9821,7 @@ GO
 **                                    MVD_RP1_Map : call_RMCObject_Event_RMTObject_Open.sql                                   **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_RMTObject_Open
@@ -9756,7 +9960,7 @@ GO
 **                                      MVD_RP1_Map : call_RMCObject_Event_Transform.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_Transform
@@ -9852,7 +10056,7 @@ GO
 **                                         MVD_RP1_Map : call_RMCObject_Event_Type.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Event_Type
@@ -9959,7 +10163,7 @@ GO
 **                                           MVD_RP1_Map : call_RMCObject_Select.sql                                          **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Select
@@ -10062,7 +10266,7 @@ GO
 **                                          MVD_RP1_Map : call_RMCObject_Validate.sql                                         **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate
@@ -10077,7 +10281,11 @@ AS
 BEGIN
            SET NOCOUNT ON
 
-       DECLARE @nCount INT
+       DECLARE @bAdmin INT = 0,
+               @nCount INT
+
+            IF EXISTS (SELECT 1 FROM dbo.Admin WHERE twRPersonaIx = @twRPersonaIx)
+               SET @bAdmin = 1
 
         SELECT @ObjectHead_Parent_wClass     = ObjectHead_Parent_wClass,
                @ObjectHead_Parent_twObjectIx = ObjectHead_Parent_twObjectIx
@@ -10092,7 +10300,7 @@ BEGIN
                EXEC dbo.call_Error 2,  'twRMCObjectIx is invalid', @nError OUTPUT
        ELSE IF @nCount <> 1
                EXEC dbo.call_Error 3,  'twRMCObjectIx is unknown', @nError OUTPUT
-       ELSE IF @twRPersonaIx <> @twRPersonaIx                                             -- TBD
+       ELSE IF @bAdmin = 0
                EXEC dbo.call_Error 4,  'Invalid rights',           @nError OUTPUT
 
         RETURN @nError
@@ -10105,7 +10313,7 @@ GO
 **                                       MVD_RP1_Map : call_RMCObject_Validate_Bound.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate_Bound
@@ -10157,7 +10365,7 @@ GO
 **                                       MVD_RP1_Map : call_RMCObject_Validate_Name.sql                                       **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate_Name
@@ -10185,7 +10393,7 @@ GO
 **                                    MVD_RP1_Map : call_RMCObject_Validate_Orbit_Spin.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate_Orbit_Spin
@@ -10243,7 +10451,7 @@ GO
 **                                       MVD_RP1_Map : call_RMCObject_Validate_Owner.sql                                      **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate_Owner
@@ -10273,7 +10481,7 @@ GO
 **                                    MVD_RP1_Map : call_RMCObject_Validate_Properties.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate_Properties
@@ -10327,7 +10535,7 @@ GO
 **                                     MVD_RP1_Map : call_RMCObject_Validate_Resource.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate_Resource
@@ -10363,7 +10571,7 @@ GO
 **                                     MVD_RP1_Map : call_RMCObject_Validate_Transform.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate_Transform
@@ -10429,7 +10637,7 @@ GO
 **                                       MVD_RP1_Map : call_RMCObject_Validate_Type.sql                                       **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMCObject_Validate_Type
@@ -10500,7 +10708,7 @@ GO
 **                                               MVD_RP1_Map : get_RMCObject.sql                                              **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 /*
@@ -10700,7 +10908,7 @@ GO
 **                                             MVD_RP1_Map : search_RMCObject.sql                                             **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.search_RMCObject
@@ -10717,6 +10925,7 @@ AS
 BEGIN
            SET NOCOUNT ON
 
+       DECLARE @SBO_CLASS_RMCOBJECT                       INT = 71
        DECLARE @MVO_RMCOBJECT_TYPE_SATELLITE              INT = 15
 
             -- Create the temp Error table
@@ -10763,11 +10972,13 @@ BEGIN
                               d.dDistance
                          FROM dbo.RMCObject AS o
                       -- JOIN dbo.RMTMatrix AS m ON m.bnMatrix = o.ObjectHead_Self_twObjectIx
-                  CROSS APPLY (SELECT POWER (CAST (4.0 AS FLOAT (53)), o.Type_bType - 7)           AS dFactor  ) AS f
-               -- CROSS APPLY (SELECT dbo.ArcLength (@dRadius, @dX, @dY, @dZ, m.d03, m.d13, m.d23) AS dDistance) AS d
-                  CROSS APPLY (SELECT -1                                                           AS dDistance) AS d  -- remove DESC from sort when distance can be properly calculated
+                  CROSS APPLY (SELECT POWER (CAST (4.0 AS FLOAT (53)), o.Type_bType - 7)                                                             AS dFactor    ) AS f
+               -- CROSS APPLY (SELECT dbo.ArcLength (@dRadius, @dX, @dY, @dZ, m.d03, m.d13, m.d23)                                                   AS dDistance  ) AS d
+                  CROSS APPLY (SELECT -1                                                                                                             AS dDistance  ) AS d  -- remove DESC from sort when distance can be properly calculated
+                  CROSS APPLY (SELECT dbo.Decendant_C (@SBO_CLASS_RMCOBJECT, @twRMCObjectIx, o.ObjectHead_Self_wClass, o.ObjectHead_Self_twObjectIx) AS bDescendant) AS i
                         WHERE o.Name_wsRMCObjectId LIKE @sText + '%'
                           AND o.Type_bType      BETWEEN @bType + 1 AND @MVO_RMCOBJECT_TYPE_SATELLITE
+                          AND i.bDescendant           = 1
                      ORDER BY f.dFactor * d.dDistance DESC, o.Name_wsRMCObjectId
 
                        SELECT o.ObjectHead_Parent_wClass     AS ObjectHead_wClass_Parent,  -- change client to new names
@@ -12118,7 +12329,7 @@ GO
 **                                          MVD_RP1_Map : call_RMRoot_Event_Name.sql                                          **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Event_Name
@@ -12187,7 +12398,7 @@ GO
 **                                          MVD_RP1_Map : call_RMRoot_Event_Owner.sql                                          **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Event_Owner
@@ -12256,7 +12467,7 @@ GO
 **                                     MVD_RP1_Map : call_RMRoot_Event_RMCObject_Close.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Event_RMCObject_Close
@@ -12317,7 +12528,7 @@ GO
 **                                     MVD_RP1_Map : call_RMRoot_Event_RMCObject_Open.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Event_RMCObject_Open
@@ -12469,7 +12680,7 @@ GO
 **                                     MVD_RP1_Map : call_RMRoot_Event_RMPObject_Close.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Event_RMPObject_Close
@@ -12534,7 +12745,7 @@ GO
 **                                     MVD_RP1_Map : call_RMRoot_Event_RMPObject_Open.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Event_RMPObject_Open
@@ -12668,7 +12879,7 @@ GO
 **                                     MVD_RP1_Map : call_RMRoot_Event_RMTObject_Close.sql                                    **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Event_RMTObject_Close
@@ -12729,7 +12940,7 @@ GO
 **                                     MVD_RP1_Map : call_RMRoot_Event_RMTObject_Open.sql                                     **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Event_RMTObject_Open
@@ -12900,7 +13111,7 @@ GO
 **                                            MVD_RP1_Map : call_RMRoot_Select.sql                                            **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Select
@@ -12951,7 +13162,7 @@ GO
 **                                           MVD_RP1_Map : call_RMRoot_Validate.sql                                           **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Validate
@@ -12966,7 +13177,11 @@ AS
 BEGIN
            SET NOCOUNT ON
 
-       DECLARE @nCount INT
+       DECLARE @bAdmin INT = 0,
+               @nCount INT
+
+            IF EXISTS (SELECT 1 FROM dbo.Admin WHERE twRPersonaIx = @twRPersonaIx)
+               SET @bAdmin = 1
 
         SELECT @ObjectHead_Parent_wClass     = ObjectHead_Parent_wClass,
                @ObjectHead_Parent_twObjectIx = ObjectHead_Parent_twObjectIx
@@ -12981,7 +13196,7 @@ BEGIN
                EXEC dbo.call_Error 2,  'twRMRootIx is invalid',    @nError OUTPUT
        ELSE IF @nCount <> 1
                EXEC dbo.call_Error 3,  'twRMRootIx is unknown',    @nError OUTPUT
-       ELSE IF @twRPersonaIx <> @twRPersonaIx                                             -- TBD
+       ELSE IF @bAdmin = 0
                EXEC dbo.call_Error 4,  'Invalid rights',           @nError OUTPUT
 
         RETURN @nError
@@ -12994,7 +13209,7 @@ GO
 **                                         MVD_RP1_Map : call_RMRoot_Validate_Name.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Validate_Name
@@ -13022,7 +13237,7 @@ GO
 **                                        MVD_RP1_Map : call_RMRoot_Validate_Owner.sql                                        **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.call_RMRoot_Validate_Owner
@@ -13052,7 +13267,7 @@ GO
 **                                                MVD_RP1_Map : get_RMRoot.sql                                                **
 **                                                                                                                            **
 ********************************************************************************************************************************
-**                            Copyright (c) 2023-2023 Metaversal Corporation. All rights reserved.                            **
+**                            Copyright (c) 2023-2025 Metaversal Corporation. All rights reserved.                            **
 *******************************************************************************************************************************/
 
 CREATE PROCEDURE dbo.get_RMRoot
