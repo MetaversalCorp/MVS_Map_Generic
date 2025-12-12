@@ -54,6 +54,8 @@ class MVSF_Map
 
    constructor ()
    {
+      this.ReadFromEnv (Settings.SQL.config, [ "host", "port", "user", "password", "database" ]);
+      
       switch (Settings.SQL.type)
       {
       case 'MYSQL':         this.#pSQL = new MVSQL_MYSQL (Settings.SQL.config, this.onSQLReady.bind (this)); break;
@@ -68,6 +70,8 @@ class MVSF_Map
    {
       if (pMVSQL)
       {
+         this.ReadFromEnv (Settings.MVSF, [ "nPort", "key" ]);
+
          this.#pServer = new MVSF (Settings.MVSF, require ('./handler.json'), __dirname, new AuthSimple (), 'application/json');
          this.#pServer.LoadHtmlSite (__dirname, [ './web/admin', './web/public']);
          this.#pServer.Run ();
@@ -79,6 +83,23 @@ class MVSF_Map
       {
          console.log ('SQL Server Connect Error: ', err);
       }
+   }
+
+   ReadFromEnv (Config, aFields)
+   {
+      let sValue;
+
+      for (let i=0; i < aFields.length; i++)
+      {
+         if ((sValue = this.#GetToken (Config[aFields[i]])) != null)
+            Config[aFields[i]] = process.env[sValue];
+      }
+   }
+
+   #GetToken (sToken)
+   {
+      const match = sToken.match (/<([^>]+)>/);
+      return match ? match[1] : null;
    }
 }
 

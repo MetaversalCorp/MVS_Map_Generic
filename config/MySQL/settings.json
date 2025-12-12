@@ -1,20 +1,20 @@
 {
    "_comment1": "'MVSF' contains Server Config Information for MVSF",
    "MVSF": {
-      "nPort": "<PORT>",
-
       "_comment1": "If your server is using SSL, rename '_SSL' to 'SSL'",
       "_SSL": {
          "key":   "./ssl/server.key",
          "cert":  "./ssl/server.cert"
       },
 
+      "_comment2": "Required for internal use.",
       "IO": {
          "bGlobalNotify": true
       },
 
-      "_comment3": "This will be your authentication Key you will pass from the website to allow scene editing",
-      "sKey": "<MY_SERVER_KEY>"
+      "_comment3": "Server Port & Admin Key",
+      "nPort": "<PORT>",
+      "key":   "<MVSADMINKEY>"
    },
 
    "SQL": {
