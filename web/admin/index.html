@@ -54,7 +54,21 @@
 </head>
 
 <body>
-   <div class="position-absolute w-100 user-select-none pe-none z-1">
+   <div class="jsLogin">
+      <h1>Login</h1>
+      <form onsubmit="onLogin(event)">
+         <input type="text" class="jsUsername" name="username" placeholder="Username" required>
+         <input type="password" class="jsPassword" name="password" placeholder="Password" required>
+         <button type="submit">Login</button>
+      </form>
+      <script>
+         function onLogin (event)
+         {
+            g_pMap.onLogin (event);
+         }
+      </script>
+   </div>
+   <div class="position-absolute w-100 user-select-none pe-none z-1 jsSceneEditor" style="display:none;">
       <nav class="main navbar navbar-expand py-1 pe-auto">
          <div class="container-lg">
             <ul class="navbar-nav gap-2 mb-lg-0 blur rounded-5 bg-dark bg-opacity-25 px-2">

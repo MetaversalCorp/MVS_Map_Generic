@@ -862,4 +862,11 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
          this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, pJSONObjectX[0]);
       }
    }
+
+   onLogin (e)
+   {
+      e.preventDefault ();
+
+      this.#m_pLnG.Login ('token=' + MV.MVMF.Escape (this.jSelector.find ('.jsPassword').val ()));
+   }
 };
