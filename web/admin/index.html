@@ -54,20 +54,32 @@
 </head>
 
 <body>
-   <div class="jsLogin">
-      <h1>Login</h1>
-      <form onsubmit="onLogin(event)">
-         <input type="text" class="jsUsername" name="username" placeholder="Username" required>
-         <input type="password" class="jsPassword" name="password" placeholder="Password" required>
-         <button type="submit">Login</button>
-      </form>
-      <script>
-         function onLogin (event)
-         {
-            g_pMap.onLogin (event);
-         }
-      </script>
+
+   <!-- Login Modal -->
+   <div class="vh-100 vw-100 bg-dark bg-opacity-50 blur position-relative z-2 jsLogin" style="" tabindex="-1">
+      <div class="modal-body text-center d-flex flex-column h-100 justify-content-center align-items-center">
+         <h1 class="modal-title mb-4 pe-none">Login</h1>
+         <div class="jsLogin container">
+            <form class="row g-3 justify-content-center align-items-center mb-5" onsubmit="onLogin(event)">
+               <div class="col-12 col-lg-4">
+                  <div class="form-floating">
+                     <input type="password" id="key" name="key" class="form-control form-control-sm jsKey" aria-describedby="Your Key" placeholder="Your Key" required>
+                     <label for="key">Enter your key:</label>
+                  </div>
+               </div>
+               <div class="col-12">
+                  <button type="submit" class="btn btn-lg btn-primary my-3 rounded-5">Enter</button>
+               </div>
+            </form>
+            <script>
+               function onLogin(event) {
+                  g_pMap.onLogin(event);
+               }
+            </script>
+         </div>
+      </div>
    </div>
+
    <div class="position-absolute w-100 user-select-none pe-none z-1 jsSceneEditor" style="display:none;">
       <nav class="main navbar navbar-expand py-1 pe-auto">
          <div class="container-lg">
