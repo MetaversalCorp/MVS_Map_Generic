@@ -892,9 +892,12 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
       if (this.#m_pLnG.ReadyState () == this.#m_pLnG.eSTATE.LOGGEDIN)
       {
-         if (this.#pZone == null)
-            this.#pZone = new MV.MVMF.COOKIE.ZONE (pData, 'Origin');
-         this.#pZone.Set ('sKey', MV.MVMF.Escape (this.jSelector.find ('.jsKey').val ()));
+         if (this.bLogin)
+         {
+            if (this.#pZone == null)
+               this.#pZone = new MV.MVMF.COOKIE.ZONE (pData, 'Origin');
+            this.#pZone.Set ('sKey', MV.MVMF.Escape (this.jSelector.find ('.jsKey').val ()));
+         }
 
          this.jSelector.find ('.jsLogin').hide ();
          this.jSelector.find ('.jsSceneEditor').show ();
@@ -925,6 +928,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    {
       e.preventDefault ();
 
+      this.bLogin = true;
       this.#m_pLnG.Login ('token=' + MV.MVMF.Escape (this.jSelector.find ('.jsKey').val ()));
    }
 };
