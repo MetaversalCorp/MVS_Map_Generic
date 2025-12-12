@@ -28,10 +28,10 @@ class AuthSimple
    {
       let pResult = { nResult: -1 };
       
-      if (pData && pData.acToken64U_RP1 == Settings.MVSF.sKey)
+      if (pData && pData.acToken64U_RP1 == Settings.MVSF.key)
       {
          pResult.nResult           = 0;
-         pResult.sSessionToken     = Settings.MVSF.sKey;
+         pResult.sSessionToken     = Settings.MVSF.key;
 
          Session.twRPersonaIx      = 1;
       }
