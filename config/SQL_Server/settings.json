@@ -11,7 +11,10 @@
 
       "IO": {
          "bGlobalNotify": true
-      }
+      },
+
+      "_comment3": "This will be your authentication Key you will pass from the website to allow scene editing",
+      "sKey": "<MY_SERVER_KEY>"
    },
 
    "SQL": {

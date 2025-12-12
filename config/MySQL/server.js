@@ -7,6 +7,46 @@ const { MVSQL_MYSQL  } = require ('@metaversalcorp/mvsql_mysql');
 /*******************************************************************************************************************************
 **                                                     Main                                                                   **
 *******************************************************************************************************************************/
+
+class AuthSimple
+{
+   constructor ()
+   {
+   }
+
+   Exec (bREST, sAction, pConn, Session, pData, fnRSP, fn)
+   {
+      if (sAction == 'login')
+         this.#Login (Session, pData, fnRSP, fn);
+      else if (sAction == 'logout')
+         this.#Logout (Session, pData, fnRSP, fn);
+      else
+         fnRSP (fn, { nResult: -1 });
+   }
+
+   #Login (Session, pData, fnRSP, fn)
+   {
+      let pResult = { nResult: -1 };
+      
+      if (pData && pData.acToken64U_RP1 == Settings.MVSF.sKey)
+      {
+         pResult.nResult           = 0;
+         pResult.sSessionToken     = Settings.MVSF.sKey;
+
+         Session.twRPersonaIx      = 1;
+      }
+
+      fnRSP (fn, pResult);
+   }
+
+   #Logout (Session, pData, fnRSP, fn)
+   {
+      Session.twRPersonaIx     = 0;
+      
+      fnRSP (fn, { nResult: 0 });
+   }
+}
+
 class MVSF_Map
 {
    #pServer;
@@ -28,7 +68,7 @@ class MVSF_Map
    {
       if (pMVSQL)
       {
-         this.#pServer = new MVSF (Settings.MVSF, require ('./handler.json'), __dirname, null, 'application/json');
+         this.#pServer = new MVSF (Settings.MVSF, require ('./handler.json'), __dirname, new AuthSimple (), 'application/json');
          this.#pServer.LoadHtmlSite (__dirname, [ './web/admin', './web/public']);
          this.#pServer.Run ();
 

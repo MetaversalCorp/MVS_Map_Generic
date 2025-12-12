@@ -5,6 +5,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    #m_MapRMXItem;
    #m_wClass_Object;
    #m_twObjectIx;
+   #pZone;
 
    #jPObject;
    #pRMXRoot;
@@ -25,6 +26,8 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       super ();
 
       this.jSelector = jSelector;
+
+      this.#pZone = null;
 
       this.nStack = 0;
       this.#twObjectIx_PendingDelete = 0;
@@ -269,7 +272,11 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
                      this.ReadyState (this.eSTATE.LOADING); // Loading Children
                      this.#pRMXRoot.Attach (this);
                   }
-                  else this.ReadyState (this.eSTATE.READY); // No Scenes
+                  else
+                  {
+                     this.ReadyState (this.eSTATE.READY); // No Scenes
+                     this.DisplayPanel ();
+                  }
                }
             }
             else if (this.ReadyState () == this.eSTATE.LOADING)
@@ -293,6 +300,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
                   }
 
                   this.UpdateScene ();
+                  this.DisplayPanel ();
                }
             }
          }
@@ -301,6 +309,13 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
                pNotice.pCreator.wClass_Object == this.#pRMXPending.wClass_Object && pNotice.pCreator.twObjectIx == this.#pRMXPending.twObjectIx)
       {
          this.#bPending = false;
+      }
+      else if (pNotice.pCreator == this.#m_pLnG)
+      {
+         if (this.#m_pLnG.ReadyState () == this.#m_pLnG.eSTATE.LOGGEDIN)
+         {
+            this.DisplayPanel ();
+         }
       }
    }
 
@@ -311,6 +326,8 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       if (this.#m_pLnG == null)
       {
          this.#m_pLnG = this.#m_pFabric.GetLnG ("map");
+         this.#m_pLnG.Attach (this);
+
          if (this.#m_wClass_Object == 70)
             sID = 'RMRoot';
          else if (this.#m_wClass_Object == 71)
@@ -863,10 +880,51 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       }
    }
 
+   DisplayPanel ()
+   {
+      let pData = 
+      {
+         sExpired : ';expires=Thu, 01 Jan 1970 00:00:01 GMT',
+         sPath    : ';path=/',
+         sZone    : '',
+         sSameSite: ';samesite=strict'
+      };
+
+      if (this.#m_pLnG.ReadyState () == this.#m_pLnG.eSTATE.LOGGEDIN)
+      {
+         if (this.#pZone == null)
+            this.#pZone = new MV.MVMF.COOKIE.ZONE (pData, 'Origin');
+         this.#pZone.Set ('sKey', MV.MVMF.Escape (this.jSelector.find ('.jsKey').val ()));
+
+         this.jSelector.find ('.jsLogin').hide ();
+         this.jSelector.find ('.jsSceneEditor').show ();
+      }
+      else
+      {
+         let sKey = null;
+
+         if (this.#pZone == null)
+         {
+            this.#pZone = new MV.MVMF.COOKIE.ZONE (pData, 'Origin');
+
+            sKey = this.#pZone.Get ('sKey');
+
+            if (sKey != null)
+               this.#m_pLnG.Login ('token=' + sKey );
+         }
+
+         if (sKey == null)
+         {
+            this.jSelector.find ('.jsLogin').show ();
+            this.jSelector.find ('.jsSceneEditor').hide ();
+         }
+      }
+   }
+
    onLogin (e)
    {
       e.preventDefault ();
 
-      this.#m_pLnG.Login ('token=' + MV.MVMF.Escape (this.jSelector.find ('.jsPassword').val ()));
+      this.#m_pLnG.Login ('token=' + MV.MVMF.Escape (this.jSelector.find ('.jsKey').val ()));
    }
 };
