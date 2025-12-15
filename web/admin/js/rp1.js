@@ -103,18 +103,14 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
    {
       if (this.IsReady ())
       {
-         if (pNotice.pData.wClass_Object == 73 && pNotice.pData.twObjectIx == this.#twObjectIx_PendingDelete)
-         {
-            this.#twObjectIx_PendingDelete = 0;
-         }
-         else
-         {
-            let pChild = pNotice.pData.pChild;
+         let pChild = pNotice.pData.pChild;
 
-            if (pChild && pChild.wClass_Object == 73 &&  pChild.twObjectIx == this.twObjectIx_Reparent)
-            {
+         if (pChild && pChild.wClass_Object == 73)
+         {
+            if (pChild.twObjectIx == this.twObjectIx_Reparent)
                this.nReparent--;
-            }
+            else if (pChild.twObjectIx == this.#twObjectIx_PendingDelete)
+               this.#twObjectIx_PendingDelete = 0;
          }
       }
    }
@@ -506,12 +502,16 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       return bResult;
    }
 
-   onRSPGeneric (pIAction, Param)
+   onRSPEdit (pIAction, Param)
    {
       if (pIAction.pResponse.nResult == 0)
       {
       }
-      else console.log ('ERROR: ' + pIAction.pResponse.nResult, pIAction);
+      else
+      {
+         this.nStack--;
+         console.log ('ERROR: ' + pIAction.pResponse.nResult, pIAction);
+      }
    }
 
    RMPEditType (pRMPObject, pRMPObjectJSON)
@@ -522,7 +522,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       if (this.RMCopy_Type (pRMPObjectJSON, Payload.pType, pRMPObject))
       {
          this.nStack++;
-         pIAction.Send (this, this.onRSPGeneric.bind (this));
+         pIAction.Send (this, this.onRSPEdit.bind (this));
       }
    }
 
@@ -534,7 +534,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       if (this.RMCopy_Name (pRMPObjectJSON, Payload.pName, pRMPObject))
       {
          this.nStack++;
-         pIAction.Send (this, this.onRSPGeneric.bind (this));
+         pIAction.Send (this, this.onRSPEdit.bind (this));
       }
    }
 
@@ -546,7 +546,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       if (this.RMCopy_Resource (pRMPObject.pResource, pRMPObjectJSON, Payload.pResource, pRMPObject))
       {
          this.nStack++;
-         pIAction.Send (this, this.onRSPGeneric.bind (this));
+         pIAction.Send (this, this.onRSPEdit.bind (this));
       }
    }
 
@@ -558,7 +558,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       if (this.RMCopy_Bound (pRMPObjectJSON, Payload.pBound, pRMPObject))
       {
          this.nStack++;
-         pIAction.Send (this, this.onRSPGeneric.bind (this));
+         pIAction.Send (this, this.onRSPEdit.bind (this));
       }
    }
 
@@ -570,7 +570,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       if (this.RMCopy_Transform (pRMPObjectJSON, Payload.pTransform, pRMPObject))
       {
          this.nStack++;
-         pIAction.Send (this, this.onRSPGeneric.bind (this));
+         pIAction.Send (this, this.onRSPEdit.bind (this));
       }
    }
 
@@ -706,95 +706,102 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
    async UpdateRMPObject (pJSONObject, pRMXObject_Parent, mpRemovedNodes, pJSONObjectX)
    {
-      let bResult;
-      let pRMPObject;
-
-      console.log ('Waiting for Stack3...');
-      await this.WaitForSingleObject (this.CheckStack.bind (this), 125);
-      console.log ('Waiting Complete...(stack3)');
-
-      this.nStack++;
-      if (pJSONObject.twObjectIx)
+      if (pJSONObject)
       {
-         pRMPObject = this.#m_MapRMXItem['73' + '-' + pJSONObject.twObjectIx];
+         const qc = [pJSONObject];
+         pJSONObjectX.pRMPObject = pRMXObject_Parent;
+         const qcX = [pJSONObjectX];
 
-         if (pRMPObject && pRMPObject.twParentIx == pRMXObject_Parent.twObjectIx && pRMPObject.wClass_Parent == pRMXObject_Parent.wClass_Object)
+         while (qc.length > 0)
          {
-            this.RMPEditAll (pRMPObject, pJSONObject);
-         }
-         else if (mpRemovedNodes[pJSONObject.twObjectIx])
-         {
-            let pIAction = pRMPObject.Request ('PARENT');
-            let Payload = pIAction.pRequest;
+            const JSONItem = qc.shift ();
+            const JSONItemX = qcX.shift ();
+            let pRMPObject;
 
-            Payload.wClass       = pRMXObject_Parent.wClass_Object;
-            Payload.twObjectIx   = pRMXObject_Parent.twObjectIx;
+            pRMXObject_Parent = JSONItemX.pRMPObject;
 
-            this.nReparent = 2;
-            this.nStack++;
-            this.twObjectIx_Reparent = pRMPObject.twObjectIx;
+            // Process Item
+            if (JSONItem.twObjectIx)
+            {
+               pRMPObject = this.#m_MapRMXItem['73' + '-' + JSONItem.twObjectIx];
 
-            console.log ('Waiting on Parent.... ' + pRMXObject_Parent.twObjectIx);
-            pIAction.Send (this, this.onRSPParent.bind (this));
-            await this.WaitForSingleObject (this.CheckParent.bind (this), 125);
-            console.log ('Parent Waiting complete....');
+               if (pRMPObject && pRMPObject.twParentIx == pRMXObject_Parent.twObjectIx && pRMPObject.wClass_Parent == pRMXObject_Parent.wClass_Object)
+               {
+                  this.RMPEditAll (pRMPObject, JSONItem);
 
-            this.nStack--;
+                  console.log ('Edit (WAITING)...');
+                  await this.WaitForSingleObject (this.CheckStack.bind (this), 125);
+                  console.log ('Edit (READY)');
+               }
+               else if (mpRemovedNodes[JSONItem.twObjectIx])
+               {
+                  let pIAction = pRMPObject.Request ('PARENT');
+                  let Payload = pIAction.pRequest;
 
-            delete mpRemovedNodes[pJSONObject.twObjectIx];
-         }
-         else
-         {
-            pRMPObject = null;
-            console.log ('ERROR: twObjectIx (' + pJSONObject.twObjectIx + ') not found!');
+                  Payload.wClass       = pRMXObject_Parent.wClass_Object;
+                  Payload.twObjectIx   = pRMXObject_Parent.twObjectIx;
+
+                  this.nReparent = 2;
+                  this.nStack++;
+                  this.twObjectIx_Reparent = pRMPObject.twObjectIx;
+
+                  console.log ('Waiting on Parent.... ' + pRMXObject_Parent.twObjectIx);
+                  pIAction.Send (this, this.onRSPParent.bind (this));
+                  await this.WaitForSingleObject (this.CheckParent.bind (this), 125);
+                  console.log ('Parent Waiting complete....');
+
+                  this.nStack--;
+
+                  delete mpRemovedNodes[JSONItem.twObjectIx];
+               }
+               else
+               {
+                  pRMPObject = null;
+                  console.log ('ERROR: twObjectIx (' + JSONItem.twObjectIx + ') not found!');
+               }
+            }
+            else
+            {
+               let pIAction = pRMXObject_Parent.Request ('RMPOBJECT_OPEN');
+               let Payload = pIAction.pRequest;
+
+               if (this.RMCopy_Name (JSONItem, Payload.pName) &&
+                     this.RMCopy_Type ({ pType: { bType: 1, bSubtype: 0, bFiction: 0, bMovable: 0 } }, Payload.pType) &&
+                     this.RMCopy_Owner ({ pOwner: { twRPersonaIx: 1 } }, Payload.pOwner) &&
+                     this.RMCopy_Resource ({ qwResource: 0, sName: ''}, JSONItem, Payload.pResource) &&
+                     this.RMCopy_Bound (JSONItem, Payload.pBound) &&
+                     this.RMCopy_Transform (JSONItem, Payload.pTransform))
+               {
+                  this.#bPending = true;
+                  this.nStack++;
+
+                  console.log ('Waiting on Add To.... ' + pRMXObject_Parent.twObjectIx);
+                  pIAction.Send (this, this.onRSPOpen.bind (this));
+                  await this.WaitForSingleObject (this.CheckPending.bind (this), 125);
+                  console.log ('Waiting on Add To Complete.... ' + pRMXObject_Parent.twObjectIx);
+
+                  this.nStack--;
+                  pRMPObject = this.#pRMXPending;
+               }
+               else
+               {
+                  pRMPObject = null;
+                  console.log ('ERROR: twObjectIx (' + JSONItem.twObjectIx + ') has invalid data!!!');
+               }
+            }
+
+            JSONItemX.bProcessed = true;
+
+            for (let n=0; n < JSONItem.aChildren.length; n++)
+            {
+               qc.push (JSONItem.aChildren[n]);
+               JSONItemX.aChildren[n].pRMPObject = pRMPObject;
+               qcX.push (JSONItemX.aChildren[n]);
+            }
          }
       }
-      else
-      {
-         let pIAction = pRMXObject_Parent.Request ('RMPOBJECT_OPEN');
-         let Payload = pIAction.pRequest;
 
-         if (this.RMCopy_Name (pJSONObject, Payload.pName) &&
-               this.RMCopy_Type ({ pType: { bType: 1, bSubtype: 0, bFiction: 0, bMovable: 0 } }, Payload.pType) &&
-               this.RMCopy_Owner ({ pOwner: { twRPersonaIx: 1 } }, Payload.pOwner) &&
-               this.RMCopy_Resource ({ qwResource: 0, sName: ''}, pJSONObject, Payload.pResource) &&
-               this.RMCopy_Bound (pJSONObject, Payload.pBound) &&
-               this.RMCopy_Transform (pJSONObject, Payload.pTransform))
-         {
-            this.#bPending = true;
-            this.nStack++;
-
-            console.log ('Waiting on Add To.... ' + pRMXObject_Parent.twObjectIx);
-            pIAction.Send (this, this.onRSPOpen.bind (this));
-            await this.WaitForSingleObject (this.CheckPending.bind (this), 125);
-            console.log ('Waiting on Add To Complete.... ' + pRMXObject_Parent.twObjectIx);
-
-            this.nStack--;
-            pRMPObject = this.#pRMXPending;
-         }
-         else
-         {
-            pRMPObject = null;
-            console.log ('ERROR: twObjectIx (' + pJSONObject.twObjectIx + ') has invalid data!!!');
-         }
-      }
-
-      pJSONObjectX.bProcessed = true;
-
-      if (pRMPObject != null)
-      {
-         bResult = true;
-
-         for (let i=0; i < pJSONObject.aChildren.length; i++)
-         {
-            bResult = this.UpdateRMPObject (pJSONObject.aChildren[i], pRMPObject, mpRemovedNodes, pJSONObjectX.aChildren[i]);
-         }
-      }
-      else bResult = false;
-
-      this.nStack--;
-
-      return bResult;
+      return true;
    }
 
    CheckJSONXEx (pJSONObjectX)
