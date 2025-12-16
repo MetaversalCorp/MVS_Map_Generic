@@ -831,9 +831,11 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
       for (let twObjectIx in mpRemovedNodes)
       {
+      }
+
+      for (let twObjectIx in mpRemovedNodes)
+      {
          let pRMPObject = this.#m_MapRMXItem['73' + '-' + twObjectIx];
-         delete this.#m_MapRMXItem['73' + '-' + twObjectIx];
-         
          pRMPObject.Detach (this);
 
          let pRMXObject_Parent = this.#m_MapRMXItem[pRMPObject.wClass_Parent + '-' + pRMPObject.twParentIx];
@@ -847,9 +849,14 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
          this.#twObjectIx_PendingDelete = pRMPObject.twObjectIx;
          pIAction.Send (this, this.onRSPClose);
 
-         console.log ('Waiting for Close...');
+         console.log ('Waiting for Close... ' + pRMXObject_Parent.twObjectIx + ' => ' + pRMPObject.twObjectIx);
          await this.WaitForSingleObject (this.CheckClose.bind (this), 125);
          console.log ('Waiting Complete...(close)');
+      }
+
+      for (let twObjectIx in mpRemovedNodes)
+      {
+         delete this.#m_MapRMXItem['73' + '-' + twObjectIx];
       }
 
       this.UpdateEditor ();
