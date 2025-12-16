@@ -2151,14 +2151,24 @@ function cleanupEmptyParentGroups(parentGroup) {
         return;
 
     if (shouldRemoveEmptyGroup(parentGroup)) {
-        const grandParent = parentGroup.parent;
+        const grandParent = parentGroup.parent || scene;
 
         // If there's still one child (the parent object), restore it to the scene
         if (parentGroup.children.length === 1) {
             const parentObject = parentGroup.children[0];
 
-            // Restore the parent object's transform and add it back to scene
-            scene.attach(parentObject);
+            // Restore the parent object's transform and add it back to the appropriate parent
+            // If the group's parent is scene (or null/undefined), attach to canvasRoot; otherwise attach to the grandparent
+            if (grandParent === scene) {
+                canvasRoot.attach(parentObject);
+            } else {
+                grandParent.attach(parentObject);
+            }
+
+            // Recreate the sidebar entry under the correct parent list
+            const parentList = grandParent === scene
+                ? canvasRoot.userData.listItem?.nextSibling
+                : grandParent.userData?.listItem?.nextSibling;
 
             // Restore twObjectIx and wClass from group to the parent object
             if (parentGroup.userData?.twObjectIx !== undefined) {
@@ -2181,9 +2191,9 @@ function cleanupEmptyParentGroups(parentGroup) {
             const listType = parentObject.userData?.originalListType || (parentObject instanceof THREE.Group && parentObject.userData?.isEditorGroup ? "group" : "model");
 
             if (listType === "group") {
-                addGroupToList(parentObject, parentObject.name || "Attached");
+                addGroupToList(parentObject, parentObject.name || "Attached", parentList);
             } else {
-                addModelToList(parentObject, parentObject.name || "Model");
+                addModelToList(parentObject, parentObject.name || "Model", parentList);
             }
 
             // Clean up the metadata
@@ -2204,7 +2214,10 @@ function cleanupEmptyParentGroups(parentGroup) {
         }
 
         // Recursively check if the grandparent group should also be removed
-        if (grandParent && grandParent !== scene) {
+        // Only recurse if grandParent is an editor group (not canvasRoot or scene)
+        if (grandParent && grandParent !== scene && grandParent.userData?.isEditorGroup) {
+            // Rebuild sidebar for the grandparent to reflect the newly attached child
+            rebuildGroupSidebar(grandParent);
             cleanupEmptyParentGroups(grandParent);
         }
     }

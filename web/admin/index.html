@@ -4,7 +4,7 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>jrSceneMaker</title>
+   <title>RP1 Scene Assembler</title>
 
    <link rel="stylesheet" href="css/styles.css">
 
@@ -56,19 +56,21 @@
 <body>
 
    <!-- Login Modal -->
-   <div class="vh-100 vw-100 bg-dark bg-opacity-50 blur position-relative z-3 jsLogin" style="display:none;" tabindex="-1">
+   <div class="login-modal vh-100 vw-100 bg-dark position-relative z-3 jsLogin" style="display:none;" tabindex="-1">
       <div class="modal-body text-center d-flex flex-column h-100 justify-content-center align-items-center">
-         <h1 class="modal-title mb-4 pe-none">Login</h1>
+         <small>Welcome to the </small>
+         <h1 class="modal-title mb-2 pe-none text-uppercase fw-lighter">RP1 Scene Assembler</h1>
+         <small class="mb-4 pe-none">Please enter your admin key to edit your scene.</small>
          <div class="jsLogin container">
             <form class="row g-3 justify-content-center align-items-center mb-5" onsubmit="onLogin(event)">
                <div class="col-12 col-lg-4">
                   <div class="form-floating">
-                     <input type="password" id="key" name="key" class="form-control form-control-sm jsKey" aria-describedby="Your Key" placeholder="Your Key" required>
-                     <label for="key">Enter your key:</label>
+                     <input type="password" id="key" name="key" class="form-control form-control-sm jsKey" aria-describedby="Your Key" placeholder="Your Key" autocomplete="current-password" required>
+                     <label for="key"><i class="fa-solid fa-key"></i> Enter your key:</label>
                   </div>
                </div>
                <div class="col-12">
-                  <button type="submit" class="btn btn-lg btn-primary my-3 rounded-5">Enter</button>
+                  <button type="submit" class="btn btn-lg btn-primary my-3 rounded-5"><i class="fa-solid fa-door-open"></i> Enter</button>
                </div>
             </form>
             <script>
@@ -80,29 +82,29 @@
       </div>
    </div>
 
-   <div class="position-absolute w-100 user-select-none pe-none z-2 jsSceneEditor" style="display:none;">
+   <div class="ui position-absolute w-100 user-select-none pe-none z-2 jsSceneEditor" style="display:none;">
       <nav class="main navbar navbar-expand py-1 pe-auto">
          <div class="container-lg">
             <ul class="navbar-nav gap-2 mb-lg-0 blur rounded-5 bg-dark bg-opacity-25 px-2">
                <li class="nav-item dropdown">
                   <a class="nav-link ps-3 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                     <i class="fa-solid fa-cube d-none"></i> scn mkr
+                     <i class="fa-solid fa-cube d-none"></i> scn assmblr
                   </a>
                   <ul class="dropdown-menu">
                      <li>
                         <div class="dropdown-item py-2">
                            <select id="sceneSelect" class="form-select jsPObject mb-3" aria-label="Select a scene">
-<!--                              <option value="0">&lt;New Scene&gt;</option>
--->
+                              <!--<option value="0">&lt;New Scene&gt;</option>-->
                            </select>
                         </div>
                      </li>
-                     <li><div class="dropdown-item mx-auto py-2">
-                        <div class="form-check form-switch">
-                           <input class="form-check-input" type="checkbox" role="switch" id="snap">
-                           <label class="form-check-label" for="snap">Snap Objects to Grid</label>
+                     <li>
+                        <div class="dropdown-item mx-auto py-2">
+                           <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" role="switch" id="snap">
+                              <label class="form-check-label" for="snap">Snap Objects to Grid</label>
+                           </div>
                         </div>
-                     </div>
                      </li>
                      <li>
                         <hr class="dropdown-divider">
@@ -138,10 +140,10 @@
                   <button class="nav-link" id="exportJson"><i class="fa-solid fa-file-export" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Export JSON"></i></button>
                </li>
                <li class="nav-item">
-                  <button class="nav-link jsPublish"><i class="fa-solid fa-floppy-disk" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Publish Scene"></i></button>
+                  <button class="nav-link jsPublish"><i class="fa-solid fa-cloud-arrow-up" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Publish Scene"></i></button>
                </li>
             </ul>
-            <button class="btn btn-sm btn-outline-secondary text-light bg-dark rounded-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#codeEditorPanel" aria-controls="codeEditorPanel"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Scene JSON" id="codeToggle"><i class="fa-solid fa-code"></i> Code Editor</button>
+            <button class="btn btn-sm btn-outline-secondary text-light bg-dark rounded-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#codeEditorPanel" aria-controls="codeEditorPanel" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Scene JSON" id="codeToggle"><i class="fa-solid fa-code"></i> Code Editor</button>
          </div>
       </nav>
       <nav class="secondary navbar navbar-expand p-0 mt-3 mt-lg-0 pe-none d-none" id="objControls">
@@ -162,8 +164,7 @@
          </ul>
       </nav>
    </div>
-
-   <div id="sidebar" class="position-fixed mt-5 pt-2 ms-3 h-100">
+   <div class="ui position-fixed mt-5 pt-2 ms-3 h-100 z-1 jsSceneEditor" id="sidebar" style="display:none;">
       <div id="modelsPanel" class="card mb-3 rounded-4 bg-dark bg-opacity-75 blur pe-none user-select-none" style="width: 18rem;">
          <div class="card-body">
             <ul class="list-group list-group-flush rounded-3 pe-auto small" id="modelList">
@@ -198,7 +199,7 @@
 
    </div>
 
-   <div class="position-absolute bottom-0 w-100 user-select-none pe-none z-1">
+   <div class="ui position-absolute bottom-0 w-100 user-select-none pe-none z-1 jsSceneEditor" style="display:none;">
       <nav class="main navbar navbar-expand py-1 pe-auto">
          <div class="container-lg">
             <ul class="d-flex justify-content-center w-100">
@@ -207,8 +208,7 @@
       </nav>
    </div>
 
-
-   <div class="offcanvas offcanvas-end mt-5 rounded-start-4 border-top bg-dark bg-opacity-75 blur" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="codeEditorPanel" aria-labelledby="codeEditorPanel">
+   <div class="offcanvas offcanvas-end mt-5 rounded-start-4 border-top bg-dark bg-opacity-75 blur z-1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="codeEditorPanel" aria-labelledby="codeEditorPanel">
       <div class="offcanvas-resize-handle" id="codeEditorResizeHandle"></div>
       <div class="offcanvas-header d-flex justify-content-between pb-0">
             <h5 class="offcanvas-title m-0 p-0 user-select-none">Code Editor</h5>
@@ -222,7 +222,7 @@
       </div>
    </div>
 
-   <div class="offcanvas offcanvas-bottom rounded-top-4 border-start border-end bg-dark bg-opacity-75 blur mx-5" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="objLibPanel" aria-labelledby="objLibPanel">
+   <div class="offcanvas offcanvas-bottom rounded-top-4 border-start border-end bg-dark bg-opacity-75 blur mx-5 z-1" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="objLibPanel" aria-labelledby="objLibPanel">
       <div class="offcanvas-resize-handle-vertical" id="objLibResizeHandle"></div>
       <div class="offcanvas-header d-flex justify-content-between py-2">
          <h5 class="offcanvas-title m-0 p-0 user-select-none">Object Library</h5>
