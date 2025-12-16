@@ -725,40 +725,37 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
             {
                pRMPObject = this.#m_MapRMXItem['73' + '-' + JSONItem.twObjectIx];
 
-               if (pRMPObject && pRMPObject.twParentIx == pRMXObject_Parent.twObjectIx && pRMPObject.wClass_Parent == pRMXObject_Parent.wClass_Object)
+               if (pRMPObject)
                {
                   this.RMPEditAll (pRMPObject, JSONItem);
 
                   console.log ('Edit (WAITING)...');
                   await this.WaitForSingleObject (this.CheckStack.bind (this), 125);
                   console.log ('Edit (READY)');
+
+                  if (mpRemovedNodes[JSONItem.twObjectIx])
+                  {
+                     let pIAction = pRMPObject.Request ('PARENT');
+                     let Payload = pIAction.pRequest;
+
+                     Payload.wClass       = pRMXObject_Parent.wClass_Object;
+                     Payload.twObjectIx   = pRMXObject_Parent.twObjectIx;
+
+                     this.nReparent = 2;
+                     this.nStack++;
+                     this.twObjectIx_Reparent = pRMPObject.twObjectIx;
+
+                     console.log ('Waiting on Parent.... ' + pRMXObject_Parent.twObjectIx);
+                     pIAction.Send (this, this.onRSPParent.bind (this));
+                     await this.WaitForSingleObject (this.CheckParent.bind (this), 125);
+                     console.log ('Parent Waiting complete....');
+
+                     this.nStack--;
+
+                     delete mpRemovedNodes[JSONItem.twObjectIx];
+                  }
                }
-               else if (mpRemovedNodes[JSONItem.twObjectIx])
-               {
-                  let pIAction = pRMPObject.Request ('PARENT');
-                  let Payload = pIAction.pRequest;
-
-                  Payload.wClass       = pRMXObject_Parent.wClass_Object;
-                  Payload.twObjectIx   = pRMXObject_Parent.twObjectIx;
-
-                  this.nReparent = 2;
-                  this.nStack++;
-                  this.twObjectIx_Reparent = pRMPObject.twObjectIx;
-
-                  console.log ('Waiting on Parent.... ' + pRMXObject_Parent.twObjectIx);
-                  pIAction.Send (this, this.onRSPParent.bind (this));
-                  await this.WaitForSingleObject (this.CheckParent.bind (this), 125);
-                  console.log ('Parent Waiting complete....');
-
-                  this.nStack--;
-
-                  delete mpRemovedNodes[JSONItem.twObjectIx];
-               }
-               else
-               {
-                  pRMPObject = null;
-                  console.log ('ERROR: twObjectIx (' + JSONItem.twObjectIx + ') not found!');
-               }
+               else console.log ('ERROR: twObjectIx (' + JSONItem.twObjectIx + ') not found!');
             }
             else
             {
