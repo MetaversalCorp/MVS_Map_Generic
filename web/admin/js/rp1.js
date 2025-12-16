@@ -823,40 +823,67 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       return this.CheckJSONXEx (pJSONObjectX); // True means stop, False continues
    }
 
+   EnumDelete (pRMXObject, Param)
+   {
+      let i;
+
+      for (i=0; i < Param.aNodes.length && Param.aNodes[i].twObjectIx != pRMXObject.twObjectIx; i++);
+      if (i == Param.aNodes.length)
+         Param.bDelete = false;
+
+      return Param.bDelete;
+   }
+
    async RemoveRMPObject (mpRemovedNodes, pJSONObjectX)
    {
       console.log ('Update (waiting)...');
       await this.WaitForSingleObject (this.CheckJSONX.bind (this, pJSONObjectX), 125);
       console.log ('Update (Completed)');
 
-      for (let twObjectIx in mpRemovedNodes)
+      let aNodes = [];
+      let i;
+      while (Object.keys (mpRemovedNodes).length > 0)
       {
+         for (let twObjectIx in mpRemovedNodes)
+         {
+            let Param = {
+               aNodes: aNodes,
+               bDelete: true
+            };
+
+            if (mpRemovedNodes[twObjectIx].nChildren > 0)
+            {
+               mpRemovedNodes[twObjectIx].Child_Enum ('RMPObject', this, this.EnumDelete, Param);
+            }
+
+            if (Param.bDelete)
+            {
+               aNodes.push (mpRemovedNodes[twObjectIx]);
+               delete mpRemovedNodes[twObjectIx];
+            }
+         }
       }
 
-      for (let twObjectIx in mpRemovedNodes)
+      for (i=0; i < aNodes.length; i++)
       {
-         let pRMPObject = this.#m_MapRMXItem['73' + '-' + twObjectIx];
-         pRMPObject.Detach (this);
+         aNodes[i].Detach (this);
 
-         let pRMXObject_Parent = this.#m_MapRMXItem[pRMPObject.wClass_Parent + '-' + pRMPObject.twParentIx];
+         let pRMXObject_Parent = this.#m_MapRMXItem[aNodes[i].wClass_Parent + '-' + aNodes[i].twParentIx];
 
          let pIAction = pRMXObject_Parent.Request ('RMPOBJECT_CLOSE');
          let Payload = pIAction.pRequest;
 
-         Payload.twRMPObjectIx_Close = pRMPObject.twObjectIx;
+         Payload.twRMPObjectIx_Close = aNodes[i].twObjectIx;
          Payload.bDeleteAll             = 0;
 
-         this.#twObjectIx_PendingDelete = pRMPObject.twObjectIx;
+         this.#twObjectIx_PendingDelete = aNodes[i].twObjectIx;
          pIAction.Send (this, this.onRSPClose);
 
-         console.log ('Waiting for Close... ' + pRMXObject_Parent.twObjectIx + ' => ' + pRMPObject.twObjectIx);
+         console.log ('Waiting for Close... ' + pRMXObject_Parent.twObjectIx + ' => ' + aNodes[i].twObjectIx);
          await this.WaitForSingleObject (this.CheckClose.bind (this), 125);
          console.log ('Waiting Complete...(close)');
-      }
 
-      for (let twObjectIx in mpRemovedNodes)
-      {
-         delete this.#m_MapRMXItem['73' + '-' + twObjectIx];
+         delete this.#m_MapRMXItem['73' + '-' + aNodes[i].twObjectIx];
       }
 
       this.UpdateEditor ();
